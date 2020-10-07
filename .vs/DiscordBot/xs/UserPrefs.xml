@@ -1,0 +1,34 @@
+﻿<Properties StartupConfiguration="{1F84D78C-D248-4DB7-8A19-88CD9A33D51A}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Modules/AdminUtilities.cs">
+    <Files>
+      <File FileName="DiscordBot/Core/Bot.cs" Line="52" Column="59" />
+      <File FileName="DiscordBot/Program.cs" Line="1" Column="1" />
+      <File FileName="DiscordBot/Core/ConfigLoader.cs" Line="11" Column="1" />
+      <File FileName="DiscordBot/Modules/AdminUtilities.cs" Line="2" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DiscordBot" expanded="True">
+            <Node name="DiscordBot" expanded="True">
+              <Node name="Core" expanded="True" />
+              <Node name="Modules" expanded="True">
+                <Node name="AdminUtilities.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.DiscordBot PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|anycpu" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
