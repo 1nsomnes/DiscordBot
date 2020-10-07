@@ -9,7 +9,6 @@ namespace DiscordBot.Core
         public static string Token { get; private set; } = "";
         public static string Prefix { get; private set; } = "";
 
-
         public static string path;
 
         public static void Load()

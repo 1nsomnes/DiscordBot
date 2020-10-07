@@ -72,6 +72,7 @@
     <Compile Include="Core\Bot.cs" />
     <Compile Include="Core\ConfigLoader.cs" />
     <Compile Include="Modules\AdminUtilities.cs" />
+    <Compile Include="Core\CommandHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
