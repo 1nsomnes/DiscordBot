@@ -8,6 +8,7 @@ namespace DiscordBot.Modules
     public class Utilities : ModuleBase<SocketCommandContext>
     {
         [Command("ping")]
+        [Core.ModuleDescription("Get latency of the bot")]
         public async Task Ping()
         {
             await Context.Channel.SendMessageAsync($"Pong **{Program.bot.client.Latency}ms**");

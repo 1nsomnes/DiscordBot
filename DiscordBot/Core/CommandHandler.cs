@@ -56,31 +56,17 @@ namespace DiscordBot.Core
                 var eb = new EmbedBuilder();
                 if(result.Error == CommandError.BadArgCount)
                 {
-                    eb = new EmbedBuilder()
-                    {
-                        Title = "Invalid Arguments",
+                    eb = BotUtils.ErrorEmbed("Invalid Arguments",
+                        $"You provided to many or to little, \n arguments please try running " +
+                        $"**{ConfigLoader.Prefix}help** for command info");
 
-                        Description = $"You provided to many or to little, \n" +
-                    $"arguments please try running **{ConfigLoader.Prefix}help** for command info",
-
-                        Timestamp = DateTime.UtcNow,
-
-                        Color = new Color(255, 0, 0)
-                    };
                     await m.Channel.SendMessageAsync(embed: eb.Build());
                     return;
                 }
-                eb = new EmbedBuilder()
-                {
-                    Title = "Error Running Command",
 
-                    Description = $"There was a problem running your command, \n" +
-                    $"please try running **{ConfigLoader.Prefix}help** to see a list of commands",
-
-                    Timestamp = DateTime.UtcNow,
-
-                    Color = new Color(255, 0, 0)
-                };
+                eb = BotUtils.ErrorEmbed("Error Running Command",
+                    $"There was a problem running your command, \n" +
+                    $"please try running **{ConfigLoader.Prefix}help** to see a list of commands");
 
                 await m.Channel.SendMessageAsync(embed: eb.Build());
             }

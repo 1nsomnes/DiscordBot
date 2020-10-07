@@ -1,9 +1,23 @@
 ﻿using System;
+using Discord;
+
 namespace DiscordBot.Core
 {
-    public class BotUtils
+    public static class BotUtils
     {
-        
+        public static EmbedBuilder ErrorEmbed(string title, string description)
+        {
+            return new EmbedBuilder()
+            {
+                Title = title,
+
+                Description = description,
+
+                Timestamp = DateTime.UtcNow,
+
+                Color = new Color(255, 0, 0)
+            };
+        }
     }
 
     [AttributeUsage(AttributeTargets.Class)]
@@ -15,6 +29,17 @@ namespace DiscordBot.Core
         public CustomModule(string name, string description)
         {
             this.name = name;
+            this.description = description;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Method)]
+    public class ModuleDescription : Attribute
+    {
+        public string description;
+
+        public ModuleDescription(string description)
+        {
             this.description = description;
         }
     }
