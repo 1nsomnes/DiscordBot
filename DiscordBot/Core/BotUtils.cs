@@ -6,10 +6,16 @@ namespace DiscordBot.Core
         
     }
 
-    [AttributeUsage(AttributeTargets.Method)]
-    public class HelpOption : Attribute
+    [AttributeUsage(AttributeTargets.Class)]
+    public class CustomModule : Attribute
     {
         public string name;
-        public string category = "other";
+        public string description = "other";
+
+        public CustomModule(string name, string description)
+        {
+            this.name = name;
+            this.description = description;
+        }
     }
 }

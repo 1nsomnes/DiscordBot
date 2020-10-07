@@ -81,10 +81,14 @@
     <Compile Include="Core\CommandHandler.cs" />
     <Compile Include="Core\BotUtils.cs" />
     <Compile Include="Modules\Fun.cs" />
+    <Compile Include="Modules\SingleCommands\HelpCommmand.cs" />
+    <Compile Include="Modules\UserCustomization.cs" />
+    <Compile Include="Modules\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="Modules\" />
+    <Folder Include="Modules\SingleCommands\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

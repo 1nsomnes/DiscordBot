@@ -32,6 +32,8 @@ namespace DiscordBot.Core
         {
             string content = JsonConvert.SerializeObject(w ?? new JSONWrapper());
             File.WriteAllText(path, content);
+
+            if (w.data.prefix != ConfigLoader.Prefix) ConfigLoader.Prefix = w.data.prefix;
         }
 
         public static JSONWrapper LoadData()

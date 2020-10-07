@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Discord.Commands;
-using DiscordBot;
+using DiscordBot.Core;
 
 namespace DiscordBot.Modules
 {
+    [CustomModule("Fun", "Commands that are fun!")]
     public class Fun : ModuleBase<SocketCommandContext>
     {
 
@@ -14,10 +15,5 @@ namespace DiscordBot.Modules
             await Context.Channel.SendMessageAsync("Hello World!");
         }
 
-        [Command("ping")]
-        public async Task Ping()
-        {
-            await Context.Channel.SendMessageAsync($"Pong **{Program.bot.client.Latency}ms**");
-        }
     }
 }
