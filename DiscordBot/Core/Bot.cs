@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
-using System.Reflection;
+using System.IO;
 
 namespace DiscordBot.Core
 {
@@ -20,7 +20,8 @@ namespace DiscordBot.Core
             //Check if there is a prefix actually set
             if (ConfigLoader.Prefix.Equals("") || ConfigLoader.Token.Equals(""))
             {
-                Console.WriteLine("Token and/or Prefix not set in config.json");
+                Console.WriteLine($"Token and/or Prefix not set in config.json. " +
+                    $"Please add them at {Directory.GetCurrentDirectory()}/configs.json");
                 return;
             }
 
