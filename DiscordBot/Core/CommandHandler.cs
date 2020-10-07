@@ -4,6 +4,7 @@ using System.Reflection;
 using Discord.Commands;
 using Discord.WebSocket;
 using Discord;
+using System.Linq;
 
 namespace DiscordBot.Core
 {
@@ -11,16 +12,27 @@ namespace DiscordBot.Core
     {
         private DiscordSocketClient client;
         private CommandService commands;
+        private IServiceProvider serviceProvider;
 
-        public CommandHandler(DiscordSocketClient client, CommandService commands)
+        public CommandHandler(DiscordSocketClient client, CommandService commands, IServiceProvider serviceProvider)
         {
             this.client = client;
             this.commands = commands;
+            this.serviceProvider = serviceProvider;
         }
 
         public async Task StartCommandService()
         {
-            await commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(), services: null);
+            //Gets all assemblies in Modules
+            /*var assembelies = Assembly.GetEntryAssembly().GetTypes().
+                Where(x => x.Namespace.Equals("DiscordBot.Modules") && x.GetTypeInfo().IsClass);
+            foreach(var x in assembelies)
+            {
+                Console.WriteLine($"Loading {x.Name} module, Type: {x.GetType()}, Is Class: {x.GetTypeInfo().IsClass}");
+                await commands.AddModulesAsync(assembly: x.Assembly, services: serviceProvider);
+            }*/
+
+            await commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(), services: serviceProvider);
             client.MessageReceived += MessageHandler;
         }
 
@@ -37,14 +49,14 @@ namespace DiscordBot.Core
 
             var context = new SocketCommandContext(client, message);
 
-            var result = await commands.ExecuteAsync(context, argPos, null);
+            var result = await commands.ExecuteAsync(context, argPos, serviceProvider);
 
             if (!result.IsSuccess)
             {
-                Console.WriteLine("Unsuccesful result");
+                Console.WriteLine("Unsuccessful result");
                 var eb = new EmbedBuilder()
                 {
-                    Title = "Error running command",
+                    Title = "Error Running Command",
 
                     Description = $"There was a problem running your command, \n" +
                     $"please try running **{ConfigLoader.Prefix}help** to see a list commands",

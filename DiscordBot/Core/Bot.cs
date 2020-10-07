@@ -4,6 +4,7 @@ using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DiscordBot.Core
 {
@@ -32,9 +33,15 @@ namespace DiscordBot.Core
             };
 
             client = new DiscordSocketClient(config);
-
             commands = new CommandService();
-            CommandHandler commandHandler = new CommandHandler(client, commands);
+
+            //Services
+            var serviceProvider = new ServiceCollection()
+                .AddSingleton(client)
+                .AddSingleton(commands)
+                .BuildServiceProvider();
+
+            CommandHandler commandHandler = new CommandHandler(client, commands, serviceProvider);
             await commandHandler.StartCommandService();
 
             //Manage Events

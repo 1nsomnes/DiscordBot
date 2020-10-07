@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace DiscordBot
 {
-    class MainClass
+    class Program
     {
         public static Bot bot = new Bot();
 

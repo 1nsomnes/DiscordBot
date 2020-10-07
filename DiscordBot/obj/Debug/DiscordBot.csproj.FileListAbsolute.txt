@@ -29,3 +29,9 @@
 /Users/ced/Projects/DiscordBot/DiscordBot/obj/Debug/DiscordBot.csproj.CopyComplete
 /Users/ced/Projects/DiscordBot/DiscordBot/obj/Debug/DiscordBot.exe
 /Users/ced/Projects/DiscordBot/DiscordBot/obj/Debug/DiscordBot.pdb
+/Users/ced/Projects/DiscordBot/DiscordBot/bin/Debug/DiscordBot.exe.config
+/Users/ced/Projects/DiscordBot/DiscordBot/bin/Debug/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/ced/Projects/DiscordBot/DiscordBot/bin/Debug/Microsoft.Extensions.DependencyInjection.dll
+/Users/ced/Projects/DiscordBot/DiscordBot/bin/Debug/Microsoft.Extensions.DependencyInjection.Abstractions.xml
+/Users/ced/Projects/DiscordBot/DiscordBot/bin/Debug/Microsoft.Extensions.DependencyInjection.xml
+/Users/ced/Projects/DiscordBot/DiscordBot/obj/Debug/DiscordBot.exe.config
