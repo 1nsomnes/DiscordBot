@@ -5,6 +5,7 @@ using Discord.Commands;
 using System.Reflection;
 using System.Linq;
 using DiscordBot.Core;
+using System.Globalization;
 
 namespace DiscordBot.Modules.SingleCommands
 {
@@ -42,17 +43,18 @@ namespace DiscordBot.Modules.SingleCommands
                 GroupBy(p => p.GetCustomAttribute<CustomModule>().name);
 
             var moduleName = string.Join(" ", module);
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
             var eb = new EmbedBuilder()
             {
-                Title = moduleName + " Module",
+                Title = textInfo.ToTitleCase(moduleName) + " Module",
 
                 Color = new Color(0, 255, 0)
             };
 
             foreach (var x in modules)
             {
-                if(x.Key == moduleName)
+                if(x.Key.ToLower().Equals(moduleName, StringComparison.CurrentCultureIgnoreCase))
                 {
                     foreach(var y in x)
                     {
