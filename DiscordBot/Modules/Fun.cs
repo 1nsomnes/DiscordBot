@@ -6,18 +6,19 @@ using Discord;
 
 namespace DiscordBot.Modules
 {
-    [CustomModule("Fun", "Commands that are fun!")]
+    [Core.CustomModule("Fun", "Commands that are fun!")]
     public class Fun : ModuleBase<SocketCommandContext>
     {
 
         [Command("hello")]
+        [Core.CommandData("hello")]
         public async Task Hello(params string[] args)
         {
             await Context.Channel.SendMessageAsync("Hello World!");
         }
 
         [Command("F")]
-        [CommandDescription("F")]
+        [Core.CommandData("F", "F")]
         public async Task F(params string[] args)
         {
             
@@ -27,7 +28,7 @@ namespace DiscordBot.Modules
 
         [Command("whenschristmas")]
         [Alias("christams", "christmastime", "timechristmas", "daystillchristmas", "whenchristmas", "snow")]
-        [CommandDescription("Self explanatory")]
+        [Core.CommandData("whenschristmas", "Self explanatory")]
         public async Task Christmas(params string[] args)
         {
             DateTime today = DateTime.UtcNow;

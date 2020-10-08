@@ -29,7 +29,7 @@ namespace DiscordBot.Modules.SingleCommands
 
             foreach(var x in modules)
             {
-                CustomModule cm = x.GetCustomAttribute<CustomModule>();
+                Core.CustomModule cm = CustomAttributeExtensions.GetCustomAttribute<Core.CustomModule>(x);
                 eb.AddField(cm.name, cm.description);
             }
             await ReplyAsync(embed: eb.Build());
@@ -49,7 +49,9 @@ namespace DiscordBot.Modules.SingleCommands
             {
                 Title = textInfo.ToTitleCase(moduleName) + " Module",
 
-                Color = new Color(0, 255, 0)
+                Color = new Color(0, 255, 0),
+
+                Timestamp = DateTime.UtcNow
             };
 
             foreach (var x in modules)
@@ -59,12 +61,12 @@ namespace DiscordBot.Modules.SingleCommands
                     foreach(var y in x)
                     {
                         var methods = y.GetMethods().
-                            Where(p => p.GetCustomAttribute<CommandAttribute>() != null);
+                            Where(p => p.GetCustomAttribute<CommandData>() != null);
                         foreach(var m in methods)
                         {
-                            var desc = m.GetCustomAttribute<Core.CommandDescription>()?.description ??
-                                "No description was provided for this command.";
-                            var title = $"{ConfigLoader.Prefix}{m.GetCustomAttribute<CommandAttribute>().Text}";
+                            var commandData = m.GetCustomAttribute<CommandData>();
+                            var desc = commandData.description;
+                            var title = $"{ConfigLoader.Prefix}{commandData.command}";
                             eb.AddField(title, desc);
                         }
                     }
@@ -73,17 +75,8 @@ namespace DiscordBot.Modules.SingleCommands
 
             if(eb.Fields.Count == 0)
             {
-                eb = new EmbedBuilder()
-                {
-                    Title = "Error Finding Module",
-
-                    Description = $"It looks like this module doesn't exist if you believe\n" +
-                    $"this is an error contact an adminisrtator",
-
-                    Timestamp = DateTime.UtcNow,
-
-                    Color = new Color(255, 0, 0)
-                };
+                eb = BotUtils.ErrorEmbed("Error Finding Module", $"It looks like this module doesn't exist if you believe\n" +
+                    $"this is an error contact an adminisrtator");
             }
 
             await ReplyAsync(embed: eb.Build());

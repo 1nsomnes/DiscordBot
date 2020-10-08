@@ -34,12 +34,14 @@ namespace DiscordBot.Core
     }
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class CommandDescription : Attribute
+    public class CommandData : Attribute
     {
+        public string command;
         public string description;
 
-        public CommandDescription(string description)
+        public CommandData(string command, string description = "No command description provided.")
         {
+            this.command = command;
             this.description = description;
         }
     }

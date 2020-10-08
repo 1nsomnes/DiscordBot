@@ -18,7 +18,7 @@ namespace DiscordBot.Modules
 
             await Program.bot.client.SetGameAsync($"{ConfigLoader.Prefix}help");
 
-            await ReplyAsync($"Prefix updated to {prefix}");
+            await ReplyAsync($"Prefix updated to `{prefix}`");
 
         }
 
