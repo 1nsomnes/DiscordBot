@@ -86,12 +86,15 @@
     <Compile Include="Modules\Fun.cs" />
     <Compile Include="Modules\SingleCommands\HelpCommmand.cs" />
     <Compile Include="Modules\UserCustomization.cs" />
-    <Compile Include="Modules\Utilities.cs" />
+    <Compile Include="Core\BotColors.cs" />
+    <Compile Include="Modules\Utilities\UtilityCommands.cs" />
+    <Compile Include="Modules\Utilities\UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="Modules\" />
     <Folder Include="Modules\SingleCommands\" />
+    <Folder Include="Modules\Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

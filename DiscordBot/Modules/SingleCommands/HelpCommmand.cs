@@ -16,20 +16,23 @@ namespace DiscordBot.Modules.SingleCommands
         public async Task Help()
         {
             var modules = Assembly.GetEntryAssembly().GetTypes().
-                Where(p => p.GetCustomAttribute<CustomModule>() != null).
+                Where(p => p.GetCustomAttribute<HelpModule>() != null).
                 ToList();
+
 
             var eb = new EmbedBuilder()
             {
                 Description = "Here are the modules for Codey! \n" +
                 $"Do `{ConfigLoader.Prefix}help <module>` to find out more about a module.",
 
+                Color = new Color((int)BotColors.DARKER_GREY),
+
                 Timestamp = DateTime.UtcNow
             };
 
             foreach(var x in modules)
             {
-                Core.CustomModule cm = CustomAttributeExtensions.GetCustomAttribute<Core.CustomModule>(x);
+                var cm = x.GetCustomAttribute<HelpModule>();
                 eb.AddField(cm.name, cm.description);
             }
             await ReplyAsync(embed: eb.Build());
@@ -39,8 +42,8 @@ namespace DiscordBot.Modules.SingleCommands
         public async Task HelpModule(params string[] module)
         {
             var modules = Assembly.GetEntryAssembly().GetTypes().
-                GroupBy(p => p.GetCustomAttribute<CustomModule>()?.name).
-                Where(g => !string.IsNullOrWhiteSpace(g.Key));
+                Where(p => p.GetCustomAttribute<HelpModule>() != null).
+                GroupBy(p => p.GetCustomAttribute<HelpModule>().module);
 
             var moduleName = string.Join(" ", module);
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
@@ -49,7 +52,7 @@ namespace DiscordBot.Modules.SingleCommands
             {
                 Title = textInfo.ToTitleCase(moduleName) + " Module",
 
-                Color = new Color(0, 255, 0),
+                Color = new Color((int)BotColors.GREEN),
 
                 Timestamp = DateTime.UtcNow
             };

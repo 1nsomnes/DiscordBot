@@ -21,12 +21,23 @@ namespace DiscordBot.Core
     }
 
     [AttributeUsage(AttributeTargets.Class)]
-    public class CustomModule : Attribute
+    public class InitializeCommands : Attribute
+    {
+        public string module;
+
+        public InitializeCommands(string module)
+        {
+            this.module = module;
+        } 
+    }
+
+    [AttributeUsage(AttributeTargets.Class)]
+    public class HelpModule : Attribute
     {
         public string name;
         public string description = "other";
 
-        public CustomModule(string name, string description)
+        public HelpModule(string name, string description)
         {
             this.name = name;
             this.description = description;
