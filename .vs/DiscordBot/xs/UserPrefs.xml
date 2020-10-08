@@ -1,13 +1,11 @@
 ﻿<Properties StartupConfiguration="{1F84D78C-D248-4DB7-8A19-88CD9A33D51A}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Modules/UserCustomization.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Modules/AdminUtilities.cs">
     <Files>
-      <File FileName="DiscordBot/Modules/AdminUtilities.cs" Line="25" Column="29" />
-      <File FileName="DiscordBot/Core/CommandHandler.cs" Line="66" Column="1" />
-      <File FileName="DiscordBot/Core/BotUtils.cs" Line="39" Column="35" />
-      <File FileName="DiscordBot/Modules/Fun.cs" Line="31" Column="1" />
-      <File FileName="DiscordBot/Modules/SingleCommands/HelpCommmand.cs" Line="63" Column="84" />
-      <File FileName="DiscordBot/Modules/SingleCommands/UserCustomization.cs" Line="9" Column="9" />
-      <File FileName="DiscordBot/Modules/Utilities.cs" Line="11" Column="33" />
+      <File FileName="DiscordBot/Modules/AdminUtilities.cs" Line="7" Column="2" />
+      <File FileName="DiscordBot/Core/BotUtils.cs" />
+      <File FileName="DiscordBot/Modules/Fun.cs" />
+      <File FileName="DiscordBot/Modules/SingleCommands/HelpCommmand.cs" />
+      <File FileName="DiscordBot/Modules/Utilities.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -17,14 +15,11 @@
               <Node name="Core" expanded="True" />
               <Node name="Modules" expanded="True">
                 <Node name="SingleCommands" expanded="True" />
-                <Node name="UserCustomization.cs" selected="True" />
+                <Node name="AdminUtilities.cs" selected="True" />
               </Node>
             </Node>
           </Node>
         </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

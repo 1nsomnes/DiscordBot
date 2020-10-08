@@ -71,6 +71,9 @@
     <Reference Include="Microsoft.Extensions.DependencyInjection">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.3.1.8\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
     </Reference>
+    <Reference Include="DiscordRPC">
+      <HintPath>..\packages\DiscordRichPresence.1.0.150\lib\net35\DiscordRPC.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
