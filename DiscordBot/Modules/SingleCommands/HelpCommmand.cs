@@ -60,7 +60,7 @@ namespace DiscordBot.Modules.SingleCommands
                             Where(p => p.GetCustomAttribute<CommandAttribute>() != null);
                         foreach(var m in methods)
                         {
-                            var desc = m.GetCustomAttribute<Core.ModuleDescription>()?.description ??
+                            var desc = m.GetCustomAttribute<Core.CommandDescription>()?.description ??
                                 "No description was provided for this command.";
                             var title = $"{ConfigLoader.Prefix}{m.GetCustomAttribute<CommandAttribute>().Text}";
                             eb.AddField(title, desc);

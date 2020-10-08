@@ -34,11 +34,11 @@ namespace DiscordBot.Core
     }
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class ModuleDescription : Attribute
+    public class CommandDescription : Attribute
     {
         public string description;
 
-        public ModuleDescription(string description)
+        public CommandDescription(string description)
         {
             this.description = description;
         }

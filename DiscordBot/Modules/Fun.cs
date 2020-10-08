@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Discord.Commands;
 using DiscordBot.Core;
+using Discord;
 
 namespace DiscordBot.Modules
 {
@@ -10,10 +11,33 @@ namespace DiscordBot.Modules
     {
 
         [Command("hello")]
-        public async Task Hello()
+        public async Task Hello(params string[] args)
         {
             await Context.Channel.SendMessageAsync("Hello World!");
         }
 
+        [Command("F")]
+        [CommandDescription("F")]
+        public async Task F(params string[] args)
+        {
+            
+            var message = await ReplyAsync("F");
+            await message.AddReactionAsync(new Emoji("\uD83C\uDDEB"));
+        }
+
+        [Command("whenschristmas")]
+        [Alias("christams", "christmastime", "timechristmas", "daystillchristmas", "whenchristmas", "snow")]
+        [CommandDescription("Self explanatory")]
+        public async Task Christmas(params string[] args)
+        {
+            DateTime today = DateTime.UtcNow;
+            DateTime next = new DateTime(today.Year, 12, 25);
+
+            if (next < today) next.AddYears(1);
+
+            var days = (next - today).Days;
+
+            await ReplyAsync($"**{days}** days until Christmas!");
+        }
     }
 }
