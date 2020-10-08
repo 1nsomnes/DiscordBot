@@ -5,18 +5,31 @@ namespace DiscordBot.Core
 {
     public static class BotUtils
     {
-        public static EmbedBuilder ErrorEmbed(string title, string description)
+        public static EmbedBuilder SuccessEmbed(string title = "", string description = "", bool withTimestamp = true)
         {
-            return new EmbedBuilder()
+            var embed = new EmbedBuilder()
             {
-                Title = title,
-
-                Description = description,
-
-                Timestamp = DateTime.UtcNow,
-
-                Color = new Color(255, 0, 0)
+                Color = new Color((int)BotColors.GREEN)
             };
+
+            if (withTimestamp) embed.WithTimestamp(DateTime.UtcNow);
+            if (!string.IsNullOrEmpty(title)) embed.Title = title;
+            if (!string.IsNullOrEmpty(description)) embed.Description = description;
+
+            return embed;
+        }
+
+        public static EmbedBuilder ErrorEmbed(string title = "", string description = "", bool withTimestamp = true)
+        {
+            var embed = new EmbedBuilder()
+            {
+                Color = new Color((int)BotColors.RED)
+            };
+
+            if (!string.IsNullOrEmpty(title)) embed.Title = title;
+            if (!string.IsNullOrEmpty(description)) embed.Description = description;
+
+            return embed;
         }
     }
 
@@ -64,6 +77,12 @@ namespace DiscordBot.Core
         {
             
             return $"{dto.Month}/{dto.Day}/{dto.Year}";
+        }
+
+        public static string ShortenedDateTime(this DateTimeOffset dto)
+        {
+
+            return $"{dto.Month}/{dto.Day}/{dto.Year} {dto.Hour}:{dto.Minute}{dto.TimeOfDay}";
         }
     }
 }

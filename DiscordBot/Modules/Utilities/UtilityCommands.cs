@@ -35,7 +35,7 @@ namespace DiscordBot.Modules.Utilities
             };
 
             eb.AddField("Owner", Context.Guild.Owner, true);
-            eb.AddField("Server Creation", Context.Guild.CreatedAt.UtcDateTime, true);
+            eb.AddField("Server Creation", Context.Guild.CreatedAt.ShortenedDate(), true);
             eb.AddField("Member Count", Context.Guild.MemberCount, true);
 
             string roles = "";

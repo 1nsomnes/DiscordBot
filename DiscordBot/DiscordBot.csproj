@@ -80,7 +80,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Bot.cs" />
     <Compile Include="Core\ConfigLoader.cs" />
-    <Compile Include="Modules\AdminUtilities.cs" />
     <Compile Include="Core\CommandHandler.cs" />
     <Compile Include="Core\BotUtils.cs" />
     <Compile Include="Modules\Fun.cs" />
@@ -89,12 +88,15 @@
     <Compile Include="Core\BotColors.cs" />
     <Compile Include="Modules\Utilities\UtilityCommands.cs" />
     <Compile Include="Modules\Utilities\UserInfo.cs" />
+    <Compile Include="Modules\AdminUtility\AdminUtilities.cs" />
+    <Compile Include="Modules\AdminUtility\LogHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="Modules\" />
     <Folder Include="Modules\SingleCommands\" />
     <Folder Include="Modules\Utilities\" />
+    <Folder Include="Modules\AdminUtility\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

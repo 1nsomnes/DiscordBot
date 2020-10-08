@@ -8,7 +8,6 @@ namespace DiscordBot.Core
     {
         public static string Token { get; private set; } = "";
         public static string Prefix { get; private set; } = "";
-        public static string PermInvite { get; private set; } = "";
 
         public static string path;
 
@@ -27,7 +26,6 @@ namespace DiscordBot.Core
             if (wrapper.data.prefix.Equals("") || wrapper.data.token.Equals("")) return;
             Token = wrapper.data.token;
             Prefix = wrapper.data.prefix;
-            PermInvite = wrapper.data.permInvite;
         }
 
         public static void SaveData(JSONWrapper w)
@@ -57,6 +55,14 @@ namespace DiscordBot.Core
     {
         public string token = "";
         public string prefix = "";
-        public string permInvite = "";
+        public AdminData adminData = new AdminData();
+    }
+
+    [System.Serializable]
+    public class AdminData
+    {
+        public ulong logChannelId;
+        public bool isLogging = false;
+
     }
 }

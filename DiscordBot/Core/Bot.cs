@@ -29,6 +29,7 @@ namespace DiscordBot.Core
             //Generates the config for the client
             var config = new DiscordSocketConfig()
             {
+                MessageCacheSize = 500, 
                 LogLevel = LogSeverity.Info
             };
 
@@ -42,7 +43,9 @@ namespace DiscordBot.Core
                 .BuildServiceProvider();
 
             CommandHandler commandHandler = new CommandHandler(client, commands, serviceProvider);
+
             await commandHandler.StartCommandService();
+            await Modules.AdminUtility.LogHandler.InitializeLogHandler(client);
 
             //Manage Events
             client.Log += m => { Console.WriteLine(m.Message); return Task.CompletedTask; };

@@ -1,24 +1,24 @@
 ﻿<Properties StartupConfiguration="{1F84D78C-D248-4DB7-8A19-88CD9A33D51A}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Core/ConfigLoader.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Modules/AdminUtility/LogHandler.cs">
     <Files>
-      <File FileName="DiscordBot/Modules/AdminUtilities.cs" Line="14" Column="10" />
-      <File FileName="DiscordBot/Core/BotUtils.cs" Line="57" Column="1" />
-      <File FileName="DiscordBot/Modules/Fun.cs" Line="9" Column="29" />
-      <File FileName="DiscordBot/Modules/SingleCommands/HelpCommmand.cs" Line="46" Column="81" />
-      <File FileName="DiscordBot/Modules/UserCustomization.cs" Line="7" Column="47" />
-      <File FileName="DiscordBot/Modules/Utilities/Utilities.cs" Line="11" Column="35" />
-      <File FileName="DiscordBot/Modules/Utilities/UserInfo.cs" Line="79" Column="1" />
-      <File FileName="DiscordBot/Core/ConfigLoader.cs" Line="1" Column="1" />
+      <File FileName="DiscordBot/Modules/AdminUtility/AdminUtilities.cs" Line="10" Column="34" />
+      <File FileName="DiscordBot/Modules/AdminUtility/LogHandler.cs" Line="146" Column="120" />
+      <File FileName="DiscordBot/Core/Bot.cs" Line="39" Column="58" />
+      <File FileName="DiscordBot/Program.cs" Line="11" Column="1" />
+      <File FileName="DiscordBot/Core/BotUtils.cs" Line="11" Column="14" />
+      <File FileName="DiscordBot/Core/BotColors.cs" Line="1" Column="1" />
+      <File FileName="DiscordBot/Core/CommandHandler.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="DiscordBot" expanded="True">
             <Node name="DiscordBot" expanded="True">
-              <Node name="Core" expanded="True">
-                <Node name="ConfigLoader.cs" selected="True" />
-              </Node>
+              <Node name="Core" expanded="True" />
               <Node name="Modules" expanded="True">
+                <Node name="AdminUtility" expanded="True">
+                  <Node name="LogHandler.cs" selected="True" />
+                </Node>
                 <Node name="SingleCommands" expanded="True" />
                 <Node name="Utilities" expanded="True" />
               </Node>

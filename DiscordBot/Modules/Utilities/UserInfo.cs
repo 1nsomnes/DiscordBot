@@ -66,12 +66,11 @@ namespace DiscordBot.Modules.Utilities
         {
             try
             {
-                
                 await ReplyAsync(embed: userInfoEmbed(Context.Guild.GetUser(userId)).Build());
             }
             catch
             {
-                var embed = BotUtils.ErrorEmbed("Error Searching for User", "Rember the user must be inside the guild. Otherwise \n" +
+                var embed = BotUtils.ErrorEmbed("Error Searching for User", "Remember this user must be inside the guild. Otherwise \n" +
                     "the command will not work.");
                 await ReplyAsync(embed: embed.Build());
             }
