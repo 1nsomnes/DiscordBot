@@ -1,29 +1,33 @@
 ﻿<Properties StartupConfiguration="{1F84D78C-D248-4DB7-8A19-88CD9A33D51A}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Modules/SingleCommands/HelpCommmand.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Core/ConfigLoader.cs">
     <Files>
-      <File FileName="DiscordBot/Modules/AdminUtilities.cs" Line="6" Column="29" />
-      <File FileName="DiscordBot/Core/BotUtils.cs" Line="16" Column="45" />
-      <File FileName="DiscordBot/Modules/Fun.cs" Line="32" Column="58" />
-      <File FileName="DiscordBot/Modules/SingleCommands/HelpCommmand.cs" Line="56" Column="44" />
-      <File FileName="DiscordBot/Modules/UserCustomization.cs" Line="9" Column="9" />
-      <File FileName="DiscordBot/Modules/Utilities/Utilities.cs" Line="14" Column="26" />
-      <File FileName="DiscordBot/Modules/Utilities/UserInfo.cs" Line="6" Column="9" />
+      <File FileName="DiscordBot/Modules/AdminUtilities.cs" Line="14" Column="10" />
+      <File FileName="DiscordBot/Core/BotUtils.cs" Line="57" Column="1" />
+      <File FileName="DiscordBot/Modules/Fun.cs" Line="9" Column="29" />
+      <File FileName="DiscordBot/Modules/SingleCommands/HelpCommmand.cs" Line="46" Column="81" />
+      <File FileName="DiscordBot/Modules/UserCustomization.cs" Line="7" Column="47" />
+      <File FileName="DiscordBot/Modules/Utilities/Utilities.cs" Line="11" Column="35" />
+      <File FileName="DiscordBot/Modules/Utilities/UserInfo.cs" Line="79" Column="1" />
+      <File FileName="DiscordBot/Core/ConfigLoader.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="DiscordBot" expanded="True">
             <Node name="DiscordBot" expanded="True">
-              <Node name="Core" expanded="True" />
+              <Node name="Core" expanded="True">
+                <Node name="ConfigLoader.cs" selected="True" />
+              </Node>
               <Node name="Modules" expanded="True">
-                <Node name="SingleCommands" expanded="True">
-                  <Node name="HelpCommmand.cs" selected="True" />
-                </Node>
+                <Node name="SingleCommands" expanded="True" />
                 <Node name="Utilities" expanded="True" />
               </Node>
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

@@ -6,6 +6,7 @@ using Discord;
 
 namespace DiscordBot.Modules
 {
+    [InitializeCommands("Fun")]
     [HelpModule("Fun", "Commands that are fun!")]
     public class Fun : ModuleBase<SocketCommandContext>
     {

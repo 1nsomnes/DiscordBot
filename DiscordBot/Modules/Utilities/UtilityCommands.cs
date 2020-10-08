@@ -8,6 +8,7 @@ using System.Linq;
 
 namespace DiscordBot.Modules.Utilities
 {
+    [InitializeCommands("Utilities")]
     [HelpModule("Utilities", "Quality of life commands that will inhance your discord experience.")]
     public class UtilityCommands : ModuleBase<SocketCommandContext>
     {
@@ -44,7 +45,25 @@ namespace DiscordBot.Modules.Utilities
             await ReplyAsync(embed: eb.Build());
         }
 
+        [Command("github")]
+        [CommandData("github", "GitHub repo link for this bot")]
+        public async Task GitHubLink(params string[] args)
+        {
+            var embed = new EmbedBuilder()
+            {
+                Title = "Github",
 
+                Description = "Codey bot is an opensource bot you can \n" +
+                "find the public repository here: \n\n" +
+                "[GitHub Repo](https://github.com/1nsomnes/DiscordBot)",
+
+                Timestamp = DateTime.UtcNow,
+
+                Color = new Color((int)BotColors.GREEN)
+            }.Build();
+
+            await ReplyAsync(embed: embed);
+        }
 
     }
 }

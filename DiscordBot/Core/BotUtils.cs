@@ -54,6 +54,16 @@ namespace DiscordBot.Core
         {
             this.command = command;
             this.description = description;
+
+        }
+    }
+
+    public static class Extensions
+    {
+        public static string ShortenedDate(this DateTimeOffset dto)
+        {
+            
+            return $"{dto.Month}/{dto.Day}/{dto.Year}";
         }
     }
 }

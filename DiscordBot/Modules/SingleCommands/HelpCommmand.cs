@@ -42,8 +42,8 @@ namespace DiscordBot.Modules.SingleCommands
         public async Task HelpModule(params string[] module)
         {
             var modules = Assembly.GetEntryAssembly().GetTypes().
-                Where(p => p.GetCustomAttribute<HelpModule>() != null).
-                GroupBy(p => p.GetCustomAttribute<HelpModule>().module);
+                Where(p => p.GetCustomAttribute<InitializeCommands>() != null).
+                GroupBy(p => p.GetCustomAttribute<InitializeCommands>().module);
 
             var moduleName = string.Join(" ", module);
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
