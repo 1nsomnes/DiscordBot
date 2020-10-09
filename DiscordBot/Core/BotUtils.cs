@@ -49,11 +49,13 @@ namespace DiscordBot.Core
     {
         public string name;
         public string description = "other";
+        public GuildPermission permission;
 
-        public HelpModule(string name, string description)
+        public HelpModule(string name, string description, GuildPermission permission = GuildPermission.SendMessages)
         {
             this.name = name;
             this.description = description;
+            this.permission = permission;
         }
     }
 
@@ -62,12 +64,14 @@ namespace DiscordBot.Core
     {
         public string command;
         public string description;
+        public GuildPermission permission;
 
-        public CommandData(string command, string description = "No command description provided.")
+        public CommandData(string command, string description = "No command description provided.",
+            GuildPermission permission = GuildPermission.SendMessages)
         {
             this.command = command;
             this.description = description;
-
+            this.permission = permission;
         }
     }
 

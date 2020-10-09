@@ -7,10 +7,10 @@ using DiscordBot.Core;
 
 namespace DiscordBot.Modules.AdminUtility
 {
+    [InitializeCommands("Admin Utilities")]
     public class LogHandler : ModuleBase<SocketCommandContext>
     {
 
-        private static DiscordSocketClient Client;
         static AdminData adminData;
 
         public static Task InitializeLogHandler(DiscordSocketClient client)
@@ -63,6 +63,7 @@ namespace DiscordBot.Modules.AdminUtility
         }
 
         [Command("logchannel")]
+        [CommandData("logchannel <channel>")]
         [RequireUserPermission(GuildPermission.Administrator)]
         public async Task LogChannel()
         {
@@ -118,6 +119,7 @@ namespace DiscordBot.Modules.AdminUtility
         }
 
         [Command("logging")]
+        [CommandData("logging <true/false>")]
         [RequireUserPermission(GuildPermission.Administrator)]
         public async Task Logging(bool val)
         {
@@ -140,7 +142,7 @@ namespace DiscordBot.Modules.AdminUtility
         {
             if (args[0].Equals("enable", StringComparison.CurrentCultureIgnoreCase)) { await Logging(true); return; }
             if (args[0].Equals("disable", StringComparison.CurrentCultureIgnoreCase)) { await Logging(false); return; }
-            var embed = BotUtils.SuccessEmbed(description: $"Logging is `{(adminData.isLogging ? "enabled" : "disabled")}`",
+            var embed = BotUtils.SuccessEmbed(description: $"Logging is currently `{(adminData.isLogging ? "enabled" : "disabled")}`",
                 withTimestamp: false).Build();
 
             await ReplyAsync(embed: embed);
