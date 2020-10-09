@@ -23,15 +23,6 @@ namespace DiscordBot.Core
 
         public async Task StartCommandService()
         {
-            //Gets all assemblies in Modules
-            /*var assembelies = Assembly.GetEntryAssembly().GetTypes().
-                Where(x => x.Namespace.Equals("DiscordBot.Modules") && x.GetTypeInfo().IsClass);
-            foreach(var x in assembelies)
-            {
-                Console.WriteLine($"Loading {x.Name} module, Type: {x.GetType()}, Is Class: {x.GetTypeInfo().IsClass}");
-                await commands.AddModulesAsync(assembly: x.Assembly, services: serviceProvider);
-            }*/
-
             await commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(), services: serviceProvider);
             client.MessageReceived += MessageHandler;
         }
