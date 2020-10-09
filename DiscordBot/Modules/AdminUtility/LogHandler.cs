@@ -16,7 +16,6 @@ namespace DiscordBot.Modules.AdminUtility
         public static Task InitializeLogHandler(DiscordSocketClient client)
         {
             adminData = ConfigLoader.LoadData().data.adminData;
-            Client = client;
 
             client.MessageUpdated += ClientMessageUpdated;
             client.MessageDeleted += ClientMessageDeleted;
