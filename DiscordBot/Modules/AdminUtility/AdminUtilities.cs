@@ -5,10 +5,13 @@ using DiscordBot.Core;
 
 namespace DiscordBot.Modules
 {
+    [InitializeCommands("Admin Utilities")]
+    [HelpModule("Admin Utilities", "Utilities for admins", Discord.GuildPermission.Administrator)]
     public class AdminUtilities : ModuleBase<SocketCommandContext>
     {
         [Command("changeprefix")]
         [Alias("prefix")]
+        [CommandData("prefix <prefix>", "Change the prefix of the bot")]
         [RequireUserPermission(Discord.GuildPermission.Administrator)]
         public async Task ChangePrefix(string prefix)
         {
@@ -24,6 +27,7 @@ namespace DiscordBot.Modules
 
         [Command("stopbot")]
         [Alias("stop")]
+        [CommandData("stopbot", "Disconnects the bot")]
         [RequireUserPermission(Discord.GuildPermission.Administrator)]
         public async Task StopBot()
         {
@@ -35,15 +39,7 @@ namespace DiscordBot.Modules
 
         [Command("changestatus")]
         [Alias("status")]
-        [RequireUserPermission(Discord.GuildPermission.Administrator)]
-        public async Task ChangeStatus()
-        {
-            await ReplyAsync("Unimplemented");
-
-        }
-
-        [Command("changestatus")]
-        [Alias("status")]
+        [CommandData("changestatus <status>", "Change the status of the bot")]
         [RequireUserPermission(Discord.GuildPermission.Administrator)]
         public async Task ChangeStatus(params string[] status)
         {

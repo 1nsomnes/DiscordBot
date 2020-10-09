@@ -5,7 +5,7 @@ using DiscordBot.Core;
 namespace DiscordBot.Modules.SingleCommands
 {
     [InitializeCommands("User Customization")]
-    [HelpModule("User Customizaition", "Commands that allow the user to customize there appearance.")]
+    [HelpModule("User Customization", "Commands that allow the user to customize there appearance.")]
     public class UserCustomization : ModuleBase<SocketCommandContext>
     {
         

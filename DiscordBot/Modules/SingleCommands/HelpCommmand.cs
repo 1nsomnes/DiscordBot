@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Linq;
 using DiscordBot.Core;
 using System.Globalization;
+using Discord.WebSocket;
 
 namespace DiscordBot.Modules.SingleCommands
 {
@@ -30,10 +31,13 @@ namespace DiscordBot.Modules.SingleCommands
                 Timestamp = DateTime.UtcNow
             };
 
+            var user = Context.User as SocketGuildUser;
+
             foreach(var x in modules)
             {
                 var cm = x.GetCustomAttribute<HelpModule>();
-                eb.AddField(cm.name, cm.description);
+
+                if(user.GuildPermissions.Has(cm.permission)) eb.AddField(cm.name, cm.description);
             }
             await ReplyAsync(embed: eb.Build());
         }
@@ -47,6 +51,8 @@ namespace DiscordBot.Modules.SingleCommands
 
             var moduleName = string.Join(" ", module);
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
+            var user = Context.User as SocketGuildUser;
 
             var eb = new EmbedBuilder()
             {
@@ -68,9 +74,12 @@ namespace DiscordBot.Modules.SingleCommands
                         foreach(var m in methods)
                         {
                             var commandData = m.GetCustomAttribute<CommandData>();
+                            var reqPermission = m.GetCustomAttribute<RequireUserPermissionAttribute>();
                             var desc = commandData.description;
                             var title = $"{ConfigLoader.Prefix}{commandData.command}";
-                            eb.AddField(title, desc);
+
+                            if (reqPermission != null && user.GuildPermissions.Has((GuildPermission)reqPermission?.GuildPermission))
+                                eb.AddField(title, desc);
                         }
                     }
                 }
@@ -78,7 +87,7 @@ namespace DiscordBot.Modules.SingleCommands
 
             if(eb.Fields.Count == 0)
             {
-                eb = BotUtils.ErrorEmbed("Error Finding Module", $"It looks like this module doesn't exist if you believe\n" +
+                eb = BotUtils.ErrorEmbed("Error Finding Module/Command", $"It looks like this module/command doesn't exist if you believe\n" +
                     $"this is an error contact an adminisrtator");
             }
 
