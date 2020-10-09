@@ -28,7 +28,7 @@ namespace DiscordBot.Modules.AdminUtility
         {
             if (adminData.logChannelId == 0 || !adminData.isLogging) return;
 
-            var embed = arg1.HasValue ? BotUtils.ErrorEmbed($"{arg1.Value.Author.Username}#{arg1.Value.Author.Discriminator} Deleted",
+            var embed = arg1.HasValue ? BotUtils.ErrorEmbed($"{arg1.Value.Author.Tag()} Deleted",
                 $"<#{arg1.Value.Channel.Id}>: `{arg1.Value.Content}`").WithFooter($"ID: {arg1.Value.Author.Id}").
                 WithColor(new Color((int)BotColors.DARK_ORANGE))
                 : BotUtils.ErrorEmbed(description: "Message was deleted but the information was lost");
@@ -47,7 +47,7 @@ namespace DiscordBot.Modules.AdminUtility
 
             var prevMsg = arg1.Value?.Content ?? "Could not retrieve contents of message";  
 
-            var embed = BotUtils.SuccessEmbed($"{arg2.Author.Username}#{arg2.Author.Discriminator}" + " Editted");
+            var embed = BotUtils.SuccessEmbed($"{arg2.Author.Tag()} Editted");
 
             embed.WithDescription($"In <#{arg2.Channel.Id}>");
             embed.WithFooter($"ID: " + arg2.Id);

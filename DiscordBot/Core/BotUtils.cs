@@ -84,5 +84,15 @@ namespace DiscordBot.Core
 
             return $"{dto.Month}/{dto.Day}/{dto.Year} {dto.Hour}:{dto.Minute}{dto.TimeOfDay}";
         }
+
+        public static string Tag(this IGuildUser u)
+        {
+            return u.Username + "#" + u.Discriminator;
+        }
+
+        public static string Tag(this IUser u)
+        {
+            return u.Username + "#" + u.Discriminator;
+        }
     }
 }

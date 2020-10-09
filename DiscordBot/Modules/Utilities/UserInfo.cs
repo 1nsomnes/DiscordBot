@@ -27,7 +27,7 @@ namespace DiscordBot.Modules.Utilities
 
             var joinedAt = (DateTimeOffset)author.JoinedAt;
 
-            embed.AddField("Username", author.Username + author.Discriminator, true);
+            embed.AddField("Username", author.Tag(), true);
             embed.AddField("ID", author.Id, true);
             embed.AddField("Join Date", joinedAt.ShortenedDate(), true);
 
@@ -52,7 +52,7 @@ namespace DiscordBot.Modules.Utilities
 
             var joinedAt = (DateTimeOffset)author.JoinedAt;
 
-            embed.AddField("Username", author.Username + author.Discriminator, true);
+            embed.AddField("Username", author.Tag(), true);
             embed.AddField("ID", author.Id, true);
             embed.AddField("Join Date", joinedAt.ShortenedDate(), true);
 
@@ -91,7 +91,7 @@ namespace DiscordBot.Modules.Utilities
 
             var joinedAt = (DateTimeOffset)author.JoinedAt;
 
-            embed.AddField("Username", author.Username + author.Discriminator, true);
+            embed.AddField("Username", author.Tag(), true);
             embed.AddField("ID", author.Id, true);
             embed.AddField("Join Date", joinedAt.ShortenedDate(), true);
 

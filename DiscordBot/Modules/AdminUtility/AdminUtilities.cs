@@ -36,6 +36,15 @@ namespace DiscordBot.Modules
         [Command("changestatus")]
         [Alias("status")]
         [RequireUserPermission(Discord.GuildPermission.Administrator)]
+        public async Task ChangeStatus()
+        {
+            await ReplyAsync("Unimplemented");
+
+        }
+
+        [Command("changestatus")]
+        [Alias("status")]
+        [RequireUserPermission(Discord.GuildPermission.Administrator)]
         public async Task ChangeStatus(params string[] status)
         {
             await Program.bot.client.SetGameAsync($"{String.Join(" ", status)}");
