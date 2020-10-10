@@ -228,6 +228,8 @@ namespace DiscordBot.Modules.AdminUtility
                 desc += $"\n {setting.Name} = `{setting.GetValue(adminData.logSettings).ToString().ToLower()}`";
             }
 
+            if (!adminData.isLogging) desc += "\n\n **!WARNING! Logging is disabled**";
+
             var embed = new EmbedBuilder().
                 WithTitle("Log Settings").
                 WithDescription(desc).
@@ -255,9 +257,11 @@ namespace DiscordBot.Modules.AdminUtility
                 ConfigLoader.SaveData(w);
 
                 var embed = BotUtils.SuccessEmbed(description: $"Logging `{settings[0].Name}` set to `{(val ? "true" : "false")}`",
-                withTimestamp: false).Build();
+                withTimestamp: false);
 
-                await ReplyAsync(embed: embed);
+                if (!adminData.isLogging) embed.WithDescription(embed.Description + "\n\n **!WARNING! Logging is disabled**");
+
+                await ReplyAsync(embed: embed.Build());
             }
             catch
             {
