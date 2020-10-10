@@ -80,6 +80,8 @@ namespace DiscordBot.Modules.SingleCommands
 
                             if (reqPermission != null && user.GuildPermissions.Has((GuildPermission)reqPermission?.GuildPermission))
                                 eb.AddField(title, desc);
+                            else
+                                eb.AddField(title, desc);
                         }
                     }
                 }
