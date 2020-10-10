@@ -1,5 +1,6 @@
 ﻿using System;
 using Discord;
+using Discord.WebSocket;
 
 namespace DiscordBot.Core
 {

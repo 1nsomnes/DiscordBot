@@ -20,8 +20,38 @@ namespace DiscordBot.Modules.AdminUtility
 
             client.MessageUpdated += ClientMessageUpdated;
             client.MessageDeleted += ClientMessageDeleted;
+            client.GuildMemberUpdated += GuildMemberUpdated;
 
             return Task.CompletedTask;
+        }
+
+        private static async Task GuildMemberUpdated(SocketGuildUser arg1, SocketGuildUser arg2)
+        {
+            if (!adminData.logSettings.nicknameUpdated || !adminData.isLogging) return;
+            //If the log channel can't be found disable logging
+            if (arg2.Guild.GetChannel(adminData.logChannelId) == null)
+            {
+                adminData.isLogging = false;
+                return;
+            }
+
+            if (!arg1.Nickname.Equals(arg2.Nickname))
+            {
+                var user = arg1 as IUser;
+                var embed = new EmbedBuilder().
+                    WithTitle($"{user.Tag()} Nickname Updated").
+                    AddField("Before", $"`{arg1.Nickname}`").
+                    AddField("After", $"`{arg2.Nickname}`").
+                    WithTimestamp(DateTime.UtcNow).
+                    WithFooter($"ID: {arg1.Id}").
+                    WithColor(new Color((int)BotColors.ORANGE)).
+                    Build();
+
+                var channel = Program.bot.client.GetChannel(adminData.logChannelId);
+                if (!(channel is ISocketMessageChannel msgChannel)) return;
+
+                await msgChannel.SendMessageAsync(embed: embed);
+            }
         }
 
         private static async Task ClientMessageDeleted(Cacheable<IMessage, ulong> arg1, ISocketMessageChannel arg2)
