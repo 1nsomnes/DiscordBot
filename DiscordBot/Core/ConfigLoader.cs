@@ -63,14 +63,14 @@ namespace DiscordBot.Core
     {
         public ulong logChannelId;
         public bool isLogging = false;
-
+        public LogSettings logSettings = new LogSettings();
     }
 
     [System.Serializable]
     public class LogSettings
     {
-        public bool editMessages = true;
-        public bool deleteMessages = true;
+        public bool editedMessage = true;
+        public bool deletedMessage = true;
     }
 
 }

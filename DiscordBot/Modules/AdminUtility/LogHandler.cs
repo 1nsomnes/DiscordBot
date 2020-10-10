@@ -4,6 +4,7 @@ using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
 using DiscordBot.Core;
+using System.Linq;
 
 namespace DiscordBot.Modules.AdminUtility
 {
@@ -25,7 +26,14 @@ namespace DiscordBot.Modules.AdminUtility
 
         private static async Task ClientMessageDeleted(Cacheable<IMessage, ulong> arg1, ISocketMessageChannel arg2)
         {
-            if (adminData.logChannelId == 0 || !adminData.isLogging) return;
+            if (!adminData.logSettings.deletedMessage || !adminData.isLogging) return;
+
+            //If the log channel can't be found disable logging
+            if((arg2 as SocketGuildChannel).Guild.GetChannel(adminData.logChannelId) == null)
+            {
+                adminData.isLogging = false;
+                return;
+            }
 
             var embed = arg1.HasValue ? BotUtils.ErrorEmbed($"{arg1.Value.Author.Tag()} Deleted",
                 $"<#{arg1.Value.Channel.Id}>: `{arg1.Value.Content}`").WithFooter($"ID: {arg1.Value.Author.Id}").
@@ -41,8 +49,15 @@ namespace DiscordBot.Modules.AdminUtility
 
         private static async Task ClientMessageUpdated(Cacheable<IMessage, ulong> arg1, SocketMessage arg2, ISocketMessageChannel arg3)
         {
-            if (adminData.logChannelId == 0 || !adminData.isLogging) return;
+            if (!adminData.logSettings.editedMessage || !adminData.isLogging) return;
             if (arg2.Author.IsBot || string.IsNullOrEmpty(arg2.Content)) return;
+
+            //If the log channel can't be found disable logging
+            if ((arg3 as SocketGuildChannel).Guild.GetChannel(adminData.logChannelId) == null)
+            {
+                adminData.isLogging = false;
+                return;
+            }
 
             var prevMsg = arg1.Value?.Content ?? "Could not retrieve contents of message";  
 
@@ -72,7 +87,7 @@ namespace DiscordBot.Modules.AdminUtility
 
             ConfigLoader.SaveData(w);
 
-            var embed = BotUtils.SuccessEmbed(description: $"Successfully set log channel to **#{Context.Channel}**", withTimestamp: false).Build();
+            var embed = BotUtils.SuccessEmbed(description: $"Successfully set log channel to <#{Context.Channel}>", withTimestamp: false).Build();
 
             await ReplyAsync(embed: embed);
         }
@@ -122,6 +137,16 @@ namespace DiscordBot.Modules.AdminUtility
         [RequireUserPermission(GuildPermission.Administrator)]
         public async Task Logging(bool val)
         {
+            if(Context.Guild.GetChannel(adminData.logChannelId) == null)
+            {
+                var e = BotUtils.ErrorEmbed(description: $"You cannot run this command because the logging channel is not set. \n" +
+                    $"Try running `>logchannel <channel>` to set the logchannel.",
+                withTimestamp: false).Build();
+
+                await ReplyAsync(embed: e);
+
+                return;
+            }
             adminData.isLogging = val;
 
             var newConfig = ConfigLoader.LoadData();
@@ -136,15 +161,75 @@ namespace DiscordBot.Modules.AdminUtility
         }
 
         [Command("logging")]
+        [CommandData("logging", "Tells you if logging is enabled or not")]
         [RequireUserPermission(GuildPermission.Administrator)]
         public async Task Logging(params string[] args)
         {
-            if (args[0].Equals("enable", StringComparison.CurrentCultureIgnoreCase)) { await Logging(true); return; }
-            if (args[0].Equals("disable", StringComparison.CurrentCultureIgnoreCase)) { await Logging(false); return; }
+            if (args.Length > 0 && args[0].Equals("enable", StringComparison.CurrentCultureIgnoreCase)) { await Logging(true); return; }
+            if (args.Length > 0 && args[0].Equals("disable", StringComparison.CurrentCultureIgnoreCase)) { await Logging(false); return; }
             var embed = BotUtils.SuccessEmbed(description: $"Logging is currently `{(adminData.isLogging ? "enabled" : "disabled")}`",
                 withTimestamp: false).Build();
 
             await ReplyAsync(embed: embed);
+        }
+
+        [Command("logsettings")]
+        [CommandData("logsettings <setting> <true/false>" , "Turn on or off a log setting")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+        public async Task LogSettings()
+        {
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            //       USE GET FIELDS
+            // TO GET PUBLIC PROPERTIES
+            //       USE GET PROPS
+            // TO GET PRIVATE PROPERTIES
+            //          ~~~
+            //  BINDING FLAGS TO SPECIFY
+            //       PROPERTY INFO
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            var settings = adminData.logSettings.GetType().
+                GetFields().Where(p => p.FieldType == typeof(bool)).ToList();
+
+            var desc = "";
+
+            foreach(var setting in settings)
+            { 
+                //                   When using FieldInfo.GetValue(instance) you must specify the instance you are getting it from.
+                desc += $"\n {setting.Name} = `{setting.GetValue(adminData.logSettings).ToString().ToLower()}`";
+            }
+
+            var embed = new EmbedBuilder().
+                WithTitle("Log Settings").
+                WithDescription(desc).
+                WithTimestamp(DateTime.UtcNow).
+                WithColor((int)BotColors.ORANGE).
+                Build();
+
+            await ReplyAsync(embed: embed);
+        }
+
+        [Command("logsettings")]
+        [CommandData("logsettings <setting> <true/false>", "Turn on or off a log setting")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+        public async Task LogSettings(string setting, bool val)
+        {
+            var settings = adminData.logSettings.GetType().
+                GetFields().Where(p => p.Name.Equals(setting, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            try
+            {
+                var embed = BotUtils.SuccessEmbed(description: $"Logging `{settings[0].Name}` set to `{(val ? "true" : "false")}`",
+                withTimestamp: false).Build();
+
+                await ReplyAsync(embed: embed);
+            }
+            catch
+            {
+                var embed = BotUtils.ErrorEmbed(description: "Error finding setting", withTimestamp: false).Build();
+
+                await ReplyAsync(embed: embed);
+            }
         }
     }
 }
