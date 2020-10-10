@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -25,6 +25,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ExternalConsole>true</ExternalConsole>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>DiscordBot.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -91,13 +94,7 @@
     <Compile Include="Modules\AdminUtility\AdminUtilities.cs" />
     <Compile Include="Modules\AdminUtility\LogHandler.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\" />
-    <Folder Include="Modules\" />
-    <Folder Include="Modules\SingleCommands\" />
-    <Folder Include="Modules\Utilities\" />
-    <Folder Include="Modules\AdminUtility\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

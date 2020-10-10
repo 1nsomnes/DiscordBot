@@ -1,6 +1,4 @@
-﻿using System;
-using DiscordBot.Core;
-using System.Threading;
+﻿using DiscordBot.Core;
 
 namespace DiscordBot
 {
