@@ -65,4 +65,12 @@ namespace DiscordBot.Core
         public bool isLogging = false;
 
     }
+
+    [System.Serializable]
+    public class LogSettings
+    {
+        public bool editMessages = true;
+        public bool deleteMessages = true;
+    }
+
 }
