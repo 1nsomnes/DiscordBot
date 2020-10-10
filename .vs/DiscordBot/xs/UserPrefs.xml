@@ -1,21 +1,20 @@
 ﻿<Properties StartupConfiguration="{1F84D78C-D248-4DB7-8A19-88CD9A33D51A}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Core/Bot.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Modules/AdminUtility/LogHandler.cs">
     <Files>
-      <File FileName="DiscordBot/Modules/SingleCommands/HelpCommmand.cs" Line="49" Column="5" />
-      <File FileName="DiscordBot/Core/IModule.cs" Line="1" Column="1" />
-      <File FileName="DiscordBot/Core/ConfigLoader.cs" Line="1" Column="1" />
+      <File FileName="DiscordBot/Core/ConfigLoader.cs" Line="68" Column="1" />
       <File FileName="DiscordBot/Core/Bot.cs" Line="33" Column="44" />
+      <File FileName="DiscordBot/Modules/AdminUtility/LogHandler.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="DiscordBot" expanded="True">
             <Node name="DiscordBot" expanded="True">
-              <Node name="Core" expanded="True">
-                <Node name="Bot.cs" selected="True" />
-              </Node>
+              <Node name="Core" expanded="True" />
               <Node name="Modules" expanded="True">
-                <Node name="AdminUtility" expanded="True" />
+                <Node name="AdminUtility" expanded="True">
+                  <Node name="LogHandler.cs" selected="True" />
+                </Node>
                 <Node name="SingleCommands" expanded="True" />
                 <Node name="Utilities" expanded="True" />
               </Node>
