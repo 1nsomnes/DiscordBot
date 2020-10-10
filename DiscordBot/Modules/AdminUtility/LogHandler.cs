@@ -26,7 +26,7 @@ namespace DiscordBot.Modules.AdminUtility
 
         private static async Task ClientMessageDeleted(Cacheable<IMessage, ulong> arg1, ISocketMessageChannel arg2)
         {
-            if (!adminData.logSettings.deletedMessage || !adminData.isLogging) return;
+            if (!adminData.logSettings.deletedMessages || !adminData.isLogging) return;
 
             //If the log channel can't be found disable logging
             if((arg2 as SocketGuildChannel).Guild.GetChannel(adminData.logChannelId) == null)
@@ -49,7 +49,7 @@ namespace DiscordBot.Modules.AdminUtility
 
         private static async Task ClientMessageUpdated(Cacheable<IMessage, ulong> arg1, SocketMessage arg2, ISocketMessageChannel arg3)
         {
-            if (!adminData.logSettings.editedMessage || !adminData.isLogging) return;
+            if (!adminData.logSettings.editedMessages || !adminData.isLogging) return;
             if (arg2.Author.IsBot || string.IsNullOrEmpty(arg2.Content)) return;
 
             //If the log channel can't be found disable logging
@@ -87,7 +87,7 @@ namespace DiscordBot.Modules.AdminUtility
 
             ConfigLoader.SaveData(w);
 
-            var embed = BotUtils.SuccessEmbed(description: $"Successfully set log channel to <#{Context.Channel}>", withTimestamp: false).Build();
+            var embed = BotUtils.SuccessEmbed(description: $"Successfully set log channel to <#{Context.Channel.Id}>", withTimestamp: false).Build();
 
             await ReplyAsync(embed: embed);
         }
@@ -102,7 +102,7 @@ namespace DiscordBot.Modules.AdminUtility
 
             ConfigLoader.SaveData(w);
 
-            var embed = BotUtils.SuccessEmbed(description: $"Successfully set log channel to **#{channel}**", withTimestamp: false).Build();
+            var embed = BotUtils.SuccessEmbed(description: $"Successfully set log channel to <#{channel.Id}>", withTimestamp: false).Build();
 
             await ReplyAsync(embed: embed);
         }
@@ -121,7 +121,7 @@ namespace DiscordBot.Modules.AdminUtility
 
                 ConfigLoader.SaveData(w);
 
-                var embed = BotUtils.SuccessEmbed(description: $"Successfully set log channel to #{channel}", withTimestamp: false).Build();
+                var embed = BotUtils.SuccessEmbed(description: $"Successfully set log channel to <#{channel.Id}>", withTimestamp: false).Build();
 
                 await ReplyAsync(embed: embed);
             } catch
@@ -209,7 +209,6 @@ namespace DiscordBot.Modules.AdminUtility
         }
 
         [Command("logsettings")]
-        [CommandData("logsettings <setting> <true/false>", "Turn on or off a log setting")]
         [RequireUserPermission(GuildPermission.Administrator)]
         public async Task LogSettings(string setting, bool val)
         {
@@ -219,6 +218,12 @@ namespace DiscordBot.Modules.AdminUtility
 
             try
             {
+                settings[0].SetValue(adminData.logSettings, val);
+
+                JSONWrapper w = ConfigLoader.LoadData();
+                w.data.adminData.logSettings = adminData.logSettings;
+                ConfigLoader.SaveData(w);
+
                 var embed = BotUtils.SuccessEmbed(description: $"Logging `{settings[0].Name}` set to `{(val ? "true" : "false")}`",
                 withTimestamp: false).Build();
 
