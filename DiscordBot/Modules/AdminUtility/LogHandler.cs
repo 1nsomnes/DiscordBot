@@ -38,10 +38,11 @@ namespace DiscordBot.Modules.AdminUtility
             if (!arg1.Nickname.Equals(arg2.Nickname))
             {
                 var user = arg1 as IUser;
+                var secondNickname = string.IsNullOrEmpty(arg2.Nickname) ? arg2.Username : arg2.Nickname;
                 var embed = new EmbedBuilder().
                     WithTitle($"{user.Tag()} Nickname Updated").
                     AddField("Before", $"`{arg1.Nickname}`").
-                    AddField("After", $"`{arg2.Nickname}`").
+                    AddField("After", $"`{secondNickname}`").
                     WithTimestamp(DateTime.UtcNow).
                     WithFooter($"ID: {arg1.Id}").
                     WithColor(new Color((int)BotColors.ORANGE)).
