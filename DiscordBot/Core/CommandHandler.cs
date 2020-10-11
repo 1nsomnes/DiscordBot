@@ -23,7 +23,20 @@ namespace DiscordBot.Core
 
         public async Task StartCommandService()
         {
-            await commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(), services: serviceProvider);
+            var assemblies = Assembly.GetEntryAssembly();
+            await commands.AddModulesAsync(assembly: assemblies, services: serviceProvider);
+
+            var defaultCommands = assemblies.GetTypes().Where(p => p.GetCustomAttribute<InitializeCommands>() != null).
+                Select(p => p.GetMethods().Where(x => x.GetCustomAttribute<DefaultCommandInitializer>() != null));
+
+            foreach(var commandGroups in defaultCommands)
+            {
+                foreach(var command in commandGroups)
+                {
+                    Console.WriteLine("Loading Default Command for " + command.Name);
+                }
+            }
+
             client.MessageReceived += MessageHandler;
         }
 

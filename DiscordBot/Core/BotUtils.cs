@@ -76,6 +76,12 @@ namespace DiscordBot.Core
         }
     }
 
+    [AttributeUsage(AttributeTargets.Method)]
+    public class DefaultCommandInitializer : Attribute
+    {
+
+    }
+
     public static class Extensions
     {
         public static string ShortenedDate(this DateTimeOffset dto)
