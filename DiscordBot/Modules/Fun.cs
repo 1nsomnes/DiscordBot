@@ -66,7 +66,8 @@ namespace DiscordBot.Modules
                 AddField("Rating", $":thumbsup:`{result.ThumbsUp}`:thumbsdown:`{result.ThumbsDown}`", true).
                 WithFooter($"Result (1/{data.List.Length})").
                 WithTimestamp(DateTime.UtcNow).
-                WithColor(new Color((int)BotColors.GREEN));
+                WithColor(new Color((int)BotColors.GREEN)).
+                WithThumbnailUrl("https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2018-01-11/297387706245_85899a44216ce1604c93_512.jpg");
 
             await ReplyAsync(embed: embed.Build());
         }
