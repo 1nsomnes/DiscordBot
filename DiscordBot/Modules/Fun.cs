@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Discord.Commands;
 using DiscordBot.Core;
 using Discord;
+using Urban.NET;
 
 namespace DiscordBot.Modules
 {
@@ -40,6 +41,34 @@ namespace DiscordBot.Modules
             var days = (next - today).Days;
 
             await ReplyAsync($"**{days}** days until Christmas!");
+        }
+
+        [Command("urbandictionary"), Alias("ud")]
+        [CommandData("urbandictionary <query>", "Search for words on UrbanDictionary")]
+        public async Task UrbanDictionary(params string[] query)
+        {
+            var urbanClient = new UrbanService();
+            var data = await urbanClient.Data(string.Join(" ", query));
+
+            if(data.List.Length <= 0)
+            {
+                var e = BotUtils.ErrorEmbed(description: "Could not find specified word.", withTimestamp: false);
+                await ReplyAsync(embed: e.Build());
+                return;
+            }
+
+            var result = data.List[0];
+
+            var embed = new EmbedBuilder().
+                AddField("Definition", result.Definition).
+                AddField("Example", result.Example).
+                AddField("\nAuthor", result.Author, true).
+                AddField("Rating", $":thumbsup:`{result.ThumbsUp}`:thumbsdown:`{result.ThumbsDown}`", true).
+                WithFooter($"Result (1/{data.List.Length})").
+                WithTimestamp(DateTime.UtcNow).
+                WithColor(new Color((int)BotColors.GREEN));
+
+            await ReplyAsync(embed: embed.Build());
         }
     }
 }
