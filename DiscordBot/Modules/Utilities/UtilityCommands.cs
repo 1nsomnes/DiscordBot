@@ -37,6 +37,7 @@ namespace DiscordBot.Modules.Utilities
             eb.AddField("Owner", Context.Guild.Owner, true);
             eb.AddField("Server Creation", Context.Guild.CreatedAt.ShortenedDate(), true);
             eb.AddField("Member Count", Context.Guild.MemberCount, true);
+            eb.WithFooter($"ID: {Context.Guild.Id}");
 
             string roles = "";
             foreach (var x in Context.Guild.Roles) roles += x.Mention;
