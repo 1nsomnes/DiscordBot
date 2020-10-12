@@ -37,7 +37,6 @@ namespace DiscordBot.Modules.Utilities
         }
 
         [Command("userinfo")]
-        [DefaultCommandInitializer]
         public async Task UserInfoCommand(IGuildUser author)
         {
             var embed = new EmbedBuilder()

@@ -5,6 +5,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Discord;
 using System.Linq;
+using Discord.Commands.Builders;
 
 namespace DiscordBot.Core
 {
@@ -23,6 +24,7 @@ namespace DiscordBot.Core
 
         public async Task StartCommandService()
         {
+            //Tell Command Service to Look Through all the Commands
             var assemblies = Assembly.GetEntryAssembly();
             await commands.AddModulesAsync(assembly: assemblies, services: serviceProvider);
 
@@ -33,7 +35,27 @@ namespace DiscordBot.Core
             {
                 foreach(var command in commandGroups)
                 {
-                    Console.WriteLine("Loading Default Command for " + command.Name);
+                    Console.WriteLine("Creating command " + command.Name);
+                    Func<ICommandContext, object[], IServiceProvider, CommandInfo, Task> callback =
+                        (context, objects, service, commandInfo) =>
+                    {
+                        context.Channel.SendMessageAsync("Test");
+                        return Task.CompletedTask;
+                    };
+
+                    Action<CommandBuilder> commandBuilder = (a) =>
+                    {
+                        
+                    };
+
+                    Action<ModuleBuilder> newCommand = c => {
+                        c.AddCommand(command.Name, callback, commandBuilder);
+                    };
+                    
+                    await commands.CreateModuleAsync("test", newCommand);
+                    
+
+                    //await commands.AddModuleAsync(newModule.GetType(), serviceProvider);
                 }
             }
 

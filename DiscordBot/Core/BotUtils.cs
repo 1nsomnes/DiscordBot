@@ -77,10 +77,10 @@ namespace DiscordBot.Core
     }
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class DefaultCommandInitializer : Attribute
-    {
+    public class DefaultCommandInitializer : Attribute { }
 
-    }
+    [AttributeUsage(AttributeTargets.Class)]
+    public class IgnoreModuleBase : Attribute { }
 
     public static class Extensions
     {

@@ -12,6 +12,7 @@ namespace DiscordBot.Modules
         [Command("changeprefix")]
         [Alias("prefix")]
         [CommandData("prefix <prefix>", "Change the prefix of the bot")]
+        [DefaultCommandInitializer]
         [RequireUserPermission(Discord.GuildPermission.Administrator)]
         public async Task ChangePrefix(string prefix)
         {
