@@ -14,5 +14,5 @@ A clear and concise description of what the problem is. Ex. Users don't have any
 A clear and concise description of your proposed solution [...]
 
 **Describe more specifically how you might want to implement your solution**
-How you have considered to implement the solution?
+How you have considered implementing the solution?
 N/A if unsure.
