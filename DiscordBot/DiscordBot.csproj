@@ -185,17 +185,20 @@
     <Compile Include="Core\BotUtils.cs" />
     <Compile Include="Modules\Fun.cs" />
     <Compile Include="Modules\SingleCommands\HelpCommmand.cs" />
-    <Compile Include="Modules\UserCustomization.cs" />
     <Compile Include="Core\BotColors.cs" />
     <Compile Include="Modules\Utilities\UtilityCommands.cs" />
     <Compile Include="Modules\Utilities\UserInfo.cs" />
     <Compile Include="Modules\AdminUtility\AdminUtilities.cs" />
     <Compile Include="Modules\AdminUtility\LogHandler.cs" />
     <Compile Include="Core\IModule.cs" />
+    <Compile Include="Modules\UserCustomizationModule\UserCustomization.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules\UserCustomizationModule\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
