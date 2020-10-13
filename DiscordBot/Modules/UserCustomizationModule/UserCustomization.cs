@@ -13,14 +13,16 @@ namespace DiscordBot.Modules.UserCustomizationModule
     [HelpModule("User Customization", "Commands that allow the user to customize there appearance.")]
     public class UserCustomization : ModuleBase<SocketCommandContext>
     {
-        [Command("giverole")]
+        [Command("giverole"),Alias("addrole")]
         [CommandData("giverole <role>", "Remove a customizable role you have")]
         public async Task GiveRole(string roleName)
         {
             var user = Context.User as SocketGuildUser;
-            var roleResults = Context.Guild.Roles.Where(p => roleName.Equals(roleName, StringComparison.OrdinalIgnoreCase)).
+            var roleResults = Context.Guild.Roles.Where(p => roleName.Equals(p.Name, StringComparison.OrdinalIgnoreCase)).
                 ToList();
             var userOptions = ConfigLoader.LoadData().data.userCustomOptions;
+
+            Console.WriteLine(roleResults[0].Id);
 
             //Check if the role is an option to remove
             if (roleResults.Count > 0 &&
@@ -28,16 +30,41 @@ namespace DiscordBot.Modules.UserCustomizationModule
                 userOptions.userTeams.Contains(roleResults[0].Id)))
             {
                 var role = Context.Guild.GetRole(roleResults[0].Id);
+                //Check if player alread has the role
+                if(user.Roles.Where(p => p.Id == role.Id).ToList().Count > 0)
+                {
+                    await ReplyAsync(embed:
+                        BotUtils.ErrorEmbed(description: $"You already have this role. If you want to remove a role do " +
+                        $"`{ConfigLoader.Prefix}removerole <role>`",
+                        withTimestamp: false).Build());
+                    return;
+                }
+
                 await user.AddRoleAsync(role);
 
+                //Check if this is a team role so that
+                //The bot can remove other team roles so there are no conflicts.
+                if(userOptions.userTeams.Contains(role.Id))
+                {
+                    foreach(var teamId in userOptions.userTeams)
+                    {
+                        var teamRole = Context.Guild.GetRole(teamId);
+                        //If it is not the role being added and the user has it; remove it
+                        if (teamId != role.Id && user.Roles.Where(p => p.Id == teamId).ToList().Count > 0)
+                            await user.RemoveRoleAsync(teamRole);
+                    }
+                }
+
                 await ReplyAsync(embed:
-                    BotUtils.SuccessEmbed(description: $"Sucessfully added `{roleName}` to user").Build());
+                    BotUtils.SuccessEmbed(description: $"Sucessfully added `{roleName}` to user",
+                    withTimestamp: false).Build());
 
                 return;
             }
 
             await ReplyAsync(embed:
-                BotUtils.ErrorEmbed(description: $"Could not find `{roleName}` in list of addable roles").Build());
+                BotUtils.ErrorEmbed(description: $"Could not find `{roleName}` in list of addable roles",
+                withTimestamp: false).Build());
         }
 
         [Command("removerole")]
@@ -45,7 +72,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
         public async Task RemoveRole(string roleName)
         {
             var user = Context.User as SocketGuildUser;
-            var roleResults = user.Roles.Where(p => roleName.Equals(roleName, StringComparison.OrdinalIgnoreCase)).
+            var roleResults = user.Roles.Where(p => roleName.Equals(p.Name, StringComparison.OrdinalIgnoreCase)).
                 ToList();
             var userOptions = ConfigLoader.LoadData().data.userCustomOptions;
 
@@ -58,13 +85,15 @@ namespace DiscordBot.Modules.UserCustomizationModule
                 await user.RemoveRoleAsync(role);
 
                 await ReplyAsync(embed:
-                    BotUtils.SuccessEmbed(description: $"Sucessfully removed `{roleName}` from user").Build());
+                    BotUtils.SuccessEmbed(description: $"Sucessfully removed `{roleName}` from user",
+                    withTimestamp: false).Build());
 
                 return;
             }
 
             await ReplyAsync(embed:
-                BotUtils.ErrorEmbed(description: $"Could not find `{roleName}` attached to user").Build());
+                BotUtils.ErrorEmbed(description: $"Could not find `{roleName}` attached to user",
+                withTimestamp: false).Build());
         }
 
         [Command("teams")]
@@ -77,7 +106,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
 
             foreach (var team in userOptions.userTeams)
             {
-                desc += $"\n - {Context.Guild.GetRole(team)?.Name}";
+                desc += $"\n  -{Context.Guild.GetRole(team)?.Name}";
             }
 
             if (string.IsNullOrWhiteSpace(desc))
@@ -104,7 +133,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
 
             foreach(var role in userOptions.userClassifications)
             {
-                desc += $"\n - {Context.Guild.GetRole(role)?.Name}";
+                desc += $"\n  -{Context.Guild.GetRole(role)?.Name}";
             }
 
             if(string.IsNullOrWhiteSpace(desc))

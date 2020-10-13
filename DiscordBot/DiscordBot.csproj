@@ -192,6 +192,7 @@
     <Compile Include="Modules\AdminUtility\LogHandler.cs" />
     <Compile Include="Core\IModule.cs" />
     <Compile Include="Modules\UserCustomizationModule\UserCustomization.cs" />
+    <Compile Include="Modules\UserCustomizationModule\AdminUserCustomization.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
