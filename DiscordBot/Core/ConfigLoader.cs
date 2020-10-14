@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DiscordBot.Core
 {
@@ -56,6 +58,14 @@ namespace DiscordBot.Core
         public string token = "";
         public string prefix = "";
         public AdminData adminData = new AdminData();
+        public UserCustomOptions userCustomOptions = new UserCustomOptions();
+    }
+
+    [System.Serializable]
+    public class UserCustomOptions
+    {
+        public List<ulong> userClassifications = new List<ulong>();
+        public List<ulong> userTeams = new List<ulong>();
     }
 
     [System.Serializable]
