@@ -35,13 +35,20 @@ namespace DiscordBot.Modules.AdminUtility
                 return;
             }
 
-            if (!arg1.Nickname.Equals(arg2.Nickname))
+            //When arg1.Nickname is empty it threw an error when doing arg1.Nickname.Equals
+            //This solves that
+            var tempNickname = arg1.Nickname;
+            if (string.IsNullOrEmpty(arg1.Nickname))
+                tempNickname = "stuff";
+
+            if (!tempNickname.Equals(arg2.Nickname))
             {
-                var user = arg1 as IUser;
+                var user = arg2 as IUser;
+                var firstNickname = string.IsNullOrEmpty(arg1.Nickname) ? arg1.Username : arg1.Nickname;
                 var secondNickname = string.IsNullOrEmpty(arg2.Nickname) ? arg2.Username : arg2.Nickname;
                 var embed = new EmbedBuilder().
                     WithTitle($"{user.Tag()} Nickname Updated").
-                    AddField("Before", $"`{arg1.Nickname}`").
+                    AddField("Before", $"`{firstNickname}`").
                     AddField("After", $"`{secondNickname}`").
                     WithTimestamp(DateTime.UtcNow).
                     WithFooter($"ID: {arg1.Id}").
