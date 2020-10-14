@@ -15,8 +15,9 @@ namespace DiscordBot.Modules.UserCustomizationModule
     {
         [Command("giverole"),Alias("addrole")]
         [CommandData("giverole <role>", "Remove a customizable role you have")]
-        public async Task GiveRole(string roleName)
+        public async Task GiveRole(params string[] roleNameArgs)
         {
+            var roleName = string.Join(" ", roleNameArgs);
             var user = Context.User as SocketGuildUser;
             var roleResults = Context.Guild.Roles.Where(p => roleName.Equals(p.Name, StringComparison.OrdinalIgnoreCase)).
                 ToList();
@@ -69,8 +70,9 @@ namespace DiscordBot.Modules.UserCustomizationModule
 
         [Command("removerole")]
         [CommandData("removerole <role>", "Remove a customizable role you have")]
-        public async Task RemoveRole(string roleName)
+        public async Task RemoveRole(params string[] roleNameArgs)
         {
+            var roleName = string.Join(" ", roleNameArgs);
             var user = Context.User as SocketGuildUser;
             var roleResults = user.Roles.Where(p => roleName.Equals(p.Name, StringComparison.OrdinalIgnoreCase)).
                 ToList();
@@ -102,7 +104,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
         {
             var userOptions = ConfigLoader.LoadData().data.userCustomOptions;
 
-            var desc = "";
+            var desc = $"Do `{ConfigLoader.Prefix}giverole <teamName>` to join a team";
 
             foreach (var team in userOptions.userTeams)
             {
@@ -129,9 +131,9 @@ namespace DiscordBot.Modules.UserCustomizationModule
         {
             var userOptions = ConfigLoader.LoadData().data.userCustomOptions;
 
-            var desc = "";
+            var desc = $"Do `{ConfigLoader.Prefix}giverole <roleName>` to join a role";
 
-            foreach(var role in userOptions.userClassifications)
+            foreach (var role in userOptions.userClassifications)
             {
                 desc += $"\n  -{Context.Guild.GetRole(role)?.Name}";
             }
