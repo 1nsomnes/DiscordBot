@@ -5,6 +5,9 @@ using Discord.WebSocket;
 using Discord.Commands;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data.Sql;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace DiscordBot.Core
 {
