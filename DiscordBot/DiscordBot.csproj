@@ -197,6 +197,7 @@
     <Compile Include="Core\IModule.cs" />
     <Compile Include="Modules\UserCustomizationModule\UserCustomization.cs" />
     <Compile Include="Modules\UserCustomizationModule\AdminUserCustomization.cs" />
+    <Compile Include="Modules\ModerationModule\ModerationMain.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -204,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modules\UserCustomizationModule\" />
+    <Folder Include="Modules\ModerationModule\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
