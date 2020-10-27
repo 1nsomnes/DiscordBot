@@ -198,6 +198,7 @@
     <Compile Include="Modules\UserCustomizationModule\UserCustomization.cs" />
     <Compile Include="Modules\UserCustomizationModule\AdminUserCustomization.cs" />
     <Compile Include="Modules\ModerationModule\ModerationMain.cs" />
+    <Compile Include="Modules\ModerationModule\BlacklistedWords.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

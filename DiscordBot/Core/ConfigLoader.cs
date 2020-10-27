@@ -59,6 +59,7 @@ namespace DiscordBot.Core
         public string prefix = "";
         public AdminData adminData = new AdminData();
         public UserCustomOptions userCustomOptions = new UserCustomOptions();
+        public ModerationSettings moderationSettings = new ModerationSettings();
     }
 
     [System.Serializable]
@@ -82,6 +83,12 @@ namespace DiscordBot.Core
         public bool editedMessages = true;
         public bool deletedMessages = true;
         public bool nicknameUpdated = true;
+    }
+
+    [System.Serializable]
+    public class ModerationSettings
+    {
+        public List<string> blacklistedWords = new List<string>();
     }
 
 }
