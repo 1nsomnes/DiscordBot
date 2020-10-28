@@ -21,6 +21,9 @@ namespace DiscordBot.Core
             //Load Custom Config Code
             ConfigLoader.Load();
 
+            //Loads Modules and Commands for Help Module
+            Modules.SingleCommands.HelpCommmand.LoadCommands();
+
             //Check if there is a prefix actually set
             if (ConfigLoader.Prefix.Equals("") || ConfigLoader.Token.Equals(""))
             {

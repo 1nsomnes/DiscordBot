@@ -7,48 +7,66 @@ using System.Linq;
 using DiscordBot.Core;
 using System.Globalization;
 using Discord.WebSocket;
+using System.Collections.Generic;
 
 namespace DiscordBot.Modules.SingleCommands
 {
     public class HelpCommmand: ModuleBase<SocketCommandContext>
     {
+        static List<Type> helpModules;
+        static EmbedBuilder modulesEmbed = null;
 
-        [Command("help")]
-        public async Task Help()
+        static List<IGrouping<string, Type>> moduleOfCommands;
+
+        public static void LoadCommands()
         {
+            /*
+
+            LOAD THE MODULES INTO A MODULES EMBED COMMAND
+
+            */
             var modules = Assembly.GetEntryAssembly().GetTypes().
                 Where(p => p.GetCustomAttribute<HelpModule>() != null).
                 ToList();
 
-
-            var eb = new EmbedBuilder()
+            modulesEmbed = new EmbedBuilder()
             {
                 Description = "Here are the modules for Codey! \n" +
                 $"Do `{ConfigLoader.Prefix}help <module>` to find out more about a module.",
 
-                Color = new Color((int)BotColors.DARKER_GREY),
-
-                Timestamp = DateTime.UtcNow
+                Color = new Color((int)BotColors.DARKER_GREY)
             };
 
-            var user = Context.User as SocketGuildUser;
+            helpModules = modules;
 
-            foreach(var x in modules)
+            /*
+
+            LOAD THE COMMANDS
+
+            */
+            moduleOfCommands = Assembly.GetEntryAssembly().GetTypes().
+                Where(p => p.GetCustomAttribute<InitializeCommands>() != null).
+                GroupBy(p => p.GetCustomAttribute<InitializeCommands>().module).
+                ToList();
+        }
+
+        [Command("help")]
+        public async Task Help()
+        {
+            var eb = modulesEmbed;
+            if (modulesEmbed is null) { eb = BotUtils.ErrorEmbed(description: "Error loading modules", withTimestamp: false); }
+            else
             {
-                var cm = x.GetCustomAttribute<HelpModule>();
-
-                if(user.GuildPermissions.Has(cm.permission)) eb.AddField(cm.name, cm.description);
+                eb = LoadHelpModules(Context.User, eb);
+                eb.WithTimestamp(DateTime.UtcNow);
             }
+
             await ReplyAsync(embed: eb.Build());
         }
 
         [Command("help")]
         public async Task HelpModule(params string[] module)
         {
-            var modules = Assembly.GetEntryAssembly().GetTypes().
-                Where(p => p.GetCustomAttribute<InitializeCommands>() != null).
-                GroupBy(p => p.GetCustomAttribute<InitializeCommands>().module);
-
             var moduleName = string.Join(" ", module);
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
@@ -63,7 +81,7 @@ namespace DiscordBot.Modules.SingleCommands
                 Timestamp = DateTime.UtcNow
             };
 
-            foreach (var x in modules)
+            foreach (var x in moduleOfCommands)
             {
                 if(x.Key.ToLower().Equals(moduleName, StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -94,6 +112,22 @@ namespace DiscordBot.Modules.SingleCommands
             }
 
             await ReplyAsync(embed: eb.Build());
+        }
+
+        //Adds the module information to given embed because each help command is different based
+        //on the user permissions
+        EmbedBuilder LoadHelpModules(SocketUser socketUser, EmbedBuilder prevEmbed)
+        {
+            var user = socketUser as SocketGuildUser;
+
+            foreach (var x in helpModules)
+            {
+                var cm = x.GetCustomAttribute<HelpModule>();
+
+                if (user.GuildPermissions.Has(cm.permission)) prevEmbed.AddField(cm.name, cm.description);
+            }
+
+            return prevEmbed;
         }
 
     }
