@@ -194,7 +194,6 @@
     <Compile Include="Modules\Utilities\UserInfo.cs" />
     <Compile Include="Modules\AdminUtility\AdminUtilities.cs" />
     <Compile Include="Modules\AdminUtility\LogHandler.cs" />
-    <Compile Include="Core\IModule.cs" />
     <Compile Include="Modules\UserCustomizationModule\UserCustomization.cs" />
     <Compile Include="Modules\UserCustomizationModule\AdminUserCustomization.cs" />
     <Compile Include="Modules\ModerationModule\ModerationMain.cs" />
