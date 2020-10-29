@@ -6,7 +6,8 @@ namespace DiscordBot.Core.Database
 {
     public class DatabaseService
     {
-        public static void AddInfraction(ulong userId, string severity, string description, ulong modId)
+
+        public static Infraction AddInfraction(ulong userId, string severity, string description, ulong modId)
         {
             using (var context = new DatabaseModel())
             {
@@ -16,14 +17,15 @@ namespace DiscordBot.Core.Database
                 infraction.description = description;
                 infraction.modId = modId;
 
-                infraction.id = context.Infractions.AsQueryable().Select(p => p.id).OrderBy(p => p).Last() + 1;
-                infraction.creationDate = DateTime.UtcNow;
-                infraction.modificationDate = DateTime.UtcNow;
-
+                infraction.creationDate = DateTime.UtcNow.ToString("yyyy-MM-dd h:mm tt");
+                infraction.modificationDate = DateTime.UtcNow.ToString("yyyy-MM-dd h:mm tt");
+                    
                 var entity = context.Infractions.Add(infraction);
                 entity.State = EntityState.Added;
 
                 context.SaveChanges();
+
+                return infraction;
             }
         }
 

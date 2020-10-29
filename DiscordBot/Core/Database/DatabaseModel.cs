@@ -29,8 +29,8 @@ namespace DiscordBot.Core.Database
         public string severity { get; set; }
         public string description { get; set; }
 
-        public DateTime creationDate { get; set; }
-        public DateTime modificationDate { get; set; }
+        public string creationDate { get; set; }
+        public string modificationDate { get; set; }
 
         public ulong modId { get; set; }
     }
