@@ -7,20 +7,107 @@ using DiscordBot.Core.Database;
 
 namespace DiscordBot.Modules.ModerationModule
 {
+    [InitializeCommands("Moderation")]
     [HelpModule("Moderation", "Commands for moderators", GuildPermission.ManageMessages)]
     public class ModerationMain : ModuleBase<SocketCommandContext>
     {
-        [Command("newinf")]
-        public async Task NewInfraction()
+        [Command("warn")]
+        [CommandData("warn", "Warn a user")]
+        [RequireUserPermission(ChannelPermission.ManageMessages)]
+        public async Task WarnUser(ulong id, params string[] reason)
         {
-            var i = DatabaseService.AddInfraction(1, "default", "default", 1);
+            var i = DatabaseService.AddInfraction(id, "warn", string.Join(" ", reason), Context.User.Id);
 
-            await ReplyAsync($"Created infraction with id {i.id}");
+            var user = (IGuildUser)Context.Guild.GetUser(id);
+
+            var embed = new EmbedBuilder().
+                WithTitle($"[Warned User] {id}").
+                AddField("Reason", string.Join(" ", reason)).
+                WithTimestamp(DateTime.UtcNow).
+                WithFooter("INF ID: " + i.id).
+                WithColor((int)BotColors.ORANGE);
+
+            if(!(user is null))
+            {
+                embed.Title = "";
+                embed.Author = new EmbedAuthorBuilder().WithIconUrl(user.GetAvatarUrl()).WithName("[Warned User] " + user.Tag());
+            }
+
+            await ReplyAsync(embed: embed.Build());
+        }
+
+        [Command("infraction"), Alias("inf")]
+        [CommandData("infraction", "View data on an infraction")]
+        [RequireUserPermission(ChannelPermission.ManageMessages)]
+        public async Task Infraction(ulong id)
+        {
+            var i = DatabaseService.GetInfraction(id);
+
+            if(i == null)
+            {
+                var error = BotUtils.ErrorEmbed(description: "Could not find specified infraction id", withTimestamp: false);
+                await ReplyAsync(embed: error.Build());
+                return;
+            }
+
+            var embed = new EmbedBuilder().
+                WithTitle($"Infraction {i.id} Data").
+                AddField("User ID", i.userId, true).
+                AddField("Mod ID", i.modId, true).
+                AddField("\nCreation Date", i.creationDate, true).
+                AddField("Modify Date", i.modificationDate, true).
+                AddField("Reason", i.description, true).
+                WithTimestamp(DateTime.UtcNow).
+                WithFooter($"INF ID: {i.id}").
+                WithColor((int)BotColors.DARK_ORANGE);
+
+            await ReplyAsync(embed: embed.Build());
+        }
+
+        [Command("userinfractions"), Alias("userinf")]
+        public async Task UserInfractions(ulong id)
+        {
+            
+
+            //await ReplyAsync($"Warned <@{id}> for {i.description}");
+        }
+
+        [Command("delinf")]
+        [RequireUserPermission(ChannelPermission.SendMessages)]
+        public async Task DeleteInfraction(ulong id)
+        {
+            var i = DatabaseService.RemoveInfraction(id);
+
+            await ReplyAsync($"Removed infraction with id {i.id}");
         }
 
         [Command("editinf"), Alias("modinf")]
-        public async Task ModifyInfraction(ulong id, string description)
+        [RequireUserPermission(ChannelPermission.SendMessages)]
+        public async Task ModifyInfraction(ulong id, params string[] description)
         {
+            var i = DatabaseService.GetInfraction(id);
+
+            if (i == null)
+            {
+                var error = BotUtils.ErrorEmbed(description: "Could not find specified infraction id", withTimestamp: false);
+                await ReplyAsync(embed: error.Build());
+                return;
+            }
+
+            var embed = new EmbedBuilder().
+                WithTitle($"Modified Infraction #{i.id}").
+                AddField("Previous Reason", i.description).
+                AddField("New Reason", string.Join(" ", description)).
+                WithTimestamp(DateTime.UtcNow).
+                WithFooter($"INF ID: {i.id}").
+                WithColor((int)BotColors.GREEN);
+
+            i.description = string.Join(" ", description);
+
+            DatabaseService.EditInfraction(i);
+
+            await ReplyAsync(embed: embed.Build());
+
 
         }
     }

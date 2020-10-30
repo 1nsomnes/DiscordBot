@@ -29,32 +29,40 @@ namespace DiscordBot.Core.Database
             }
         }
 
-        public static void RemoveInfraction(ulong infractionId)
+        public static Infraction RemoveInfraction(ulong infractionId)
         {
             using (var context = new DatabaseModel())
             {
                 var result = context.Infractions.AsQueryable().Where(inf => inf.id == infractionId).First();
 
-                if (result is null) return;
+                if (result is null) return null;
 
                 var entity = context.Infractions.Remove(result);
                 entity.State = EntityState.Deleted;
 
                 context.SaveChanges();
+
+                return result;
             }
         }
 
-        public static void EditInfraction(ulong infractionId, string description)
+        public static Infraction GetInfraction(ulong id)
         {
             using (var context = new DatabaseModel())
             {
-                var result = context.Infractions.AsQueryable().Where(inf => inf.id == infractionId).First();
+                var result = context.Infractions.Find(id);
 
-                if (result is null) return;
+                if (result is null) return null;
 
-                result.description = description;
+                return result; 
+            }
+        }
 
-                var entity = context.Infractions.Update(result);
+        public static void EditInfraction(Infraction infr)
+        {
+            using (var context = new DatabaseModel())
+            {
+                var entity = context.Infractions.Update(infr);
                 entity.State = EntityState.Modified;
 
                 context.SaveChanges();
