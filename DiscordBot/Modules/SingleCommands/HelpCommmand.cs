@@ -26,7 +26,7 @@ namespace DiscordBot.Modules.SingleCommands
                 Description = "Here are the modules for Codey! \n" +
                 $"Do `{ConfigLoader.Prefix}help <module>` to find out more about a module.",
 
-                Color = new Color((int)BotColors.DARKER_GREY),
+                Color = new Color(BotColors.DARKER_GREY),
 
                 Timestamp = DateTime.UtcNow
             };
@@ -58,7 +58,7 @@ namespace DiscordBot.Modules.SingleCommands
             {
                 Title = textInfo.ToTitleCase(moduleName) + " Module",
 
-                Color = new Color((int)BotColors.GREEN),
+                Color = new Color(BotColors.GREEN),
 
                 Timestamp = DateTime.UtcNow
             };

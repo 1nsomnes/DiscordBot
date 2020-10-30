@@ -62,6 +62,8 @@ namespace DiscordBot.Core.Database
         {
             using (var context = new DatabaseModel())
             {
+                infr.modificationDate = DateTime.UtcNow.ToString("yyyy-MM-dd h:mm tt");
+
                 var entity = context.Infractions.Update(infr);
                 entity.State = EntityState.Modified;
 

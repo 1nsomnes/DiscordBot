@@ -11,6 +11,9 @@ namespace DiscordBot.Modules.ModerationModule
     [HelpModule("Moderation", "Commands for moderators", GuildPermission.ManageMessages)]
     public class ModerationMain : ModuleBase<SocketCommandContext>
     {
+
+        public enum PunishmentType { Warn, TempMute, Mute, TempBan, Ban };
+
         [Command("warn")]
         [CommandData("warn", "Warn a user")]
         [RequireUserPermission(ChannelPermission.ManageMessages)]
@@ -25,7 +28,7 @@ namespace DiscordBot.Modules.ModerationModule
                 AddField("Reason", string.Join(" ", reason)).
                 WithTimestamp(DateTime.UtcNow).
                 WithFooter("INF ID: " + i.id).
-                WithColor((int)BotColors.ORANGE);
+                WithColor(BotColors.ORANGE);
 
             if(!(user is null))
             {
@@ -36,7 +39,12 @@ namespace DiscordBot.Modules.ModerationModule
             await ReplyAsync(embed: embed.Build());
         }
 
-        [Command("infraction"), Alias("inf")]
+        public void CarryOutPunishment(ulong id, PunishmentType punishmentType)
+        {
+
+        }
+
+        [Command("infraction"), Alias("inf", "infr")]
         [CommandData("infraction", "View data on an infraction")]
         [RequireUserPermission(ChannelPermission.ManageMessages)]
         public async Task Infraction(ulong id)
@@ -54,12 +62,13 @@ namespace DiscordBot.Modules.ModerationModule
                 WithTitle($"Infraction {i.id} Data").
                 AddField("User ID", i.userId, true).
                 AddField("Mod ID", i.modId, true).
+                AddField("Severity", i.severity, true). 
                 AddField("\nCreation Date", i.creationDate, true).
                 AddField("Modify Date", i.modificationDate, true).
                 AddField("Reason", i.description, true).
                 WithTimestamp(DateTime.UtcNow).
                 WithFooter($"INF ID: {i.id}").
-                WithColor((int)BotColors.DARK_ORANGE);
+                WithColor(BotColors.DARK_ORANGE);
 
             await ReplyAsync(embed: embed.Build());
         }
@@ -100,7 +109,7 @@ namespace DiscordBot.Modules.ModerationModule
                 AddField("New Reason", string.Join(" ", description)).
                 WithTimestamp(DateTime.UtcNow).
                 WithFooter($"INF ID: {i.id}").
-                WithColor((int)BotColors.GREEN);
+                WithColor(BotColors.GREEN);
 
             i.description = string.Join(" ", description);
 

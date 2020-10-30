@@ -20,7 +20,7 @@ namespace DiscordBot.Modules.Utilities
 
                 ThumbnailUrl = author.GetAvatarUrl(),
 
-                Color = new Color((int)BotColors.GREEN),
+                Color = new Color(BotColors.GREEN),
 
                 Timestamp = DateTime.UtcNow
             };
@@ -45,7 +45,7 @@ namespace DiscordBot.Modules.Utilities
 
                 ThumbnailUrl = author.GetAvatarUrl(),
 
-                Color = new Color((int)BotColors.GREEN),
+                Color = new Color(BotColors.GREEN),
 
                 Timestamp = DateTime.UtcNow
             };
@@ -84,7 +84,7 @@ namespace DiscordBot.Modules.Utilities
 
                 ThumbnailUrl = author.GetAvatarUrl(),
 
-                Color = new Color((int)BotColors.GREEN),
+                Color = new Color(BotColors.GREEN),
 
                 Timestamp = DateTime.UtcNow
             };

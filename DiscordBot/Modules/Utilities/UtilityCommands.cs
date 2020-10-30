@@ -31,7 +31,7 @@ namespace DiscordBot.Modules.Utilities
 
                 Timestamp = DateTime.UtcNow,
 
-                Color = new Color((int)BotColors.BLUE)
+                Color = new Color(BotColors.BLUE)
             };
 
             eb.AddField("Owner", Context.Guild.Owner, true);
@@ -60,7 +60,7 @@ namespace DiscordBot.Modules.Utilities
 
                 Timestamp = DateTime.UtcNow,
 
-                Color = new Color((int)BotColors.GREEN)
+                Color = new Color(BotColors.GREEN)
             }.Build();
 
             await ReplyAsync(embed: embed);

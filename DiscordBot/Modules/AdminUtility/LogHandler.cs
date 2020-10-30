@@ -52,7 +52,7 @@ namespace DiscordBot.Modules.AdminUtility
                     AddField("After", $"`{secondNickname}`").
                     WithTimestamp(DateTime.UtcNow).
                     WithFooter($"ID: {arg1.Id}").
-                    WithColor(new Color((int)BotColors.ORANGE)).
+                    WithColor(new Color(BotColors.ORANGE)).
                     Build();
 
                 var channel = Program.bot.client.GetChannel(adminData.logChannelId);
@@ -75,7 +75,7 @@ namespace DiscordBot.Modules.AdminUtility
 
             var embed = arg1.HasValue ? BotUtils.ErrorEmbed($"{arg1.Value.Author.Tag()} Deleted",
                 $"<#{arg1.Value.Channel.Id}>: `{arg1.Value.Content}`").WithFooter($"ID: {arg1.Value.Author.Id}").
-                WithColor(new Color((int)BotColors.DARK_ORANGE))
+                WithColor(new Color(BotColors.DARK_ORANGE))
                 : BotUtils.ErrorEmbed(description: "Message was deleted but the information was lost");
 
             var channel = Program.bot.client.GetChannel(adminData.logChannelId);
@@ -105,7 +105,7 @@ namespace DiscordBot.Modules.AdminUtility
             embed.WithFooter($"ID: " + arg2.Id);
             embed.AddField("Before", $"`{prevMsg}`");
             embed.AddField("After", $"`{arg2.Content}`");
-            embed.Color = new Color((int)BotColors.ORANGE);
+            embed.Color = new Color(BotColors.ORANGE);
 
             var channel = Program.bot.client.GetChannel(adminData.logChannelId);
             if (!(channel is ISocketMessageChannel msgChannel)) return; ;
@@ -242,7 +242,7 @@ namespace DiscordBot.Modules.AdminUtility
                 WithTitle("Log Settings").
                 WithDescription(desc).
                 WithTimestamp(DateTime.UtcNow).
-                WithColor((int)BotColors.ORANGE).
+                WithColor(BotColors.ORANGE).
                 Build();
 
             await ReplyAsync(embed: embed);
