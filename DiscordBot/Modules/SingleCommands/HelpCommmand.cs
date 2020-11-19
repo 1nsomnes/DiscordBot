@@ -14,7 +14,6 @@ namespace DiscordBot.Modules.SingleCommands
     public class HelpCommmand: ModuleBase<SocketCommandContext>
     {
         static List<Type> helpModules;
-        static EmbedBuilder modulesEmbed = null;
 
         static List<IGrouping<string, Type>> moduleOfCommands;
 
@@ -28,14 +27,6 @@ namespace DiscordBot.Modules.SingleCommands
             var modules = Assembly.GetEntryAssembly().GetTypes().
                 Where(p => p.GetCustomAttribute<HelpModule>() != null).
                 ToList();
-
-            modulesEmbed = new EmbedBuilder()
-            {
-                Description = "Here are the modules for Codey! \n" +
-                $"Do `{ConfigLoader.Prefix}help <module>` to find out more about a module.",
-
-                Color = new Color((int)BotColors.DARKER_GREY)
-            };
 
             helpModules = modules;
 
@@ -53,13 +44,12 @@ namespace DiscordBot.Modules.SingleCommands
         [Command("help")]
         public async Task Help()
         {
-            var eb = modulesEmbed;
-            if (modulesEmbed is null) { eb = BotUtils.ErrorEmbed(description: "Error loading modules", withTimestamp: false); }
-            else
-            {
-                eb = LoadHelpModules(Context.User, eb);
-                eb.WithTimestamp(DateTime.UtcNow);
-            }
+            var eb = new EmbedBuilder().WithDescription("Here are the modules for Codey! \n" +
+                $"Do `{ConfigLoader.Prefix}help <module>` to find out more about a module.").
+                WithColor((int)BotColors.DARKER_GREY);
+
+            eb = LoadHelpModules(Context.User, eb);
+            eb.WithTimestamp(DateTime.UtcNow);  
 
             await ReplyAsync(embed: eb.Build());
         }
