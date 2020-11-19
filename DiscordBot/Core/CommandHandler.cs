@@ -52,14 +52,7 @@ namespace DiscordBot.Core
                         $"**{ConfigLoader.Prefix}help** for command info");
 
                     await m.Channel.SendMessageAsync(embed: eb.Build());
-                    return;
                 }
-
-                eb = BotUtils.ErrorEmbed("Error Running Command",
-                    $"There was a problem running your command, \n" +
-                    $"please try running **{ConfigLoader.Prefix}help** to see a list of commands");
-
-                await m.Channel.SendMessageAsync(embed: eb.Build());
             }
         }
     }
