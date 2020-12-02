@@ -68,8 +68,8 @@ namespace DiscordBot.Modules.Utilities
         }
 
         [Command("customcommands")]
-        [Alias("cc")]
-        [CommandData("Displays the custom commands")]
+        [Alias("cc", "customcommand")]
+        [CommandData("customcommands", "Displays the custom commands")]
         public async Task CustomCommands(params string[] args)
         {
             Type customCommandsType = typeof(HelpingCommands);
