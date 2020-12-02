@@ -66,7 +66,7 @@ namespace DiscordBot.Modules.SingleCommands
             {
                 Title = textInfo.ToTitleCase(moduleName) + " Module",
 
-                Color = new Color((int)BotColors.GREEN),
+                Color = new Color((int)BotColors.BLUE),
 
                 Timestamp = DateTime.UtcNow
             };

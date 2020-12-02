@@ -5,6 +5,7 @@ using DiscordBot.Core;
 using DiscordBot;
 using Discord;
 using System.Linq;
+using System.Reflection;
 
 namespace DiscordBot.Modules.Utilities
 {
@@ -64,6 +65,35 @@ namespace DiscordBot.Modules.Utilities
             }.Build();
 
             await ReplyAsync(embed: embed);
+        }
+
+        [Command("customcommands")]
+        [Alias("cc")]
+        [CommandData("Displays the custom commands")]
+        public async Task CustomCommands(params string[] args)
+        {
+            Type customCommandsType = typeof(HelpingCommands);
+
+            var methods = customCommandsType.GetMethods().
+                Where(p => p.GetCustomAttribute<CommandAttribute>() != null).
+                ToArray();
+
+            var embed = new EmbedBuilder().
+                WithDescription("*Courtsey of the Brackey's discord server*").
+                WithTimestamp(DateTime.UtcNow).
+                WithColor((int)BotColors.BLUE);
+
+            string commands = "";
+
+            foreach(var method in methods)
+            {
+                commands += $" {ConfigLoader.Prefix}" + method.GetCustomAttribute<CommandAttribute>().Text + "\n";
+                
+            }
+
+            embed.AddField("Custom Commands", commands);
+
+            await ReplyAsync(embed: embed.Build());
         }
 
     }

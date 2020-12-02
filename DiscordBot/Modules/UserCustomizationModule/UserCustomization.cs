@@ -14,7 +14,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
     public class UserCustomization : ModuleBase<SocketCommandContext>
     {
         [Command("giverole"),Alias("addrole")]
-        [CommandData("giverole <role>", "Remove a customizable role you have")]
+        [CommandData("giverole <role>", "Gives you a custom role")]
         public async Task GiveRole(params string[] roleNameArgs)
         {
             var roleName = string.Join(" ", roleNameArgs);
@@ -99,7 +99,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
         }
 
         [Command("teams")]
-        [CommandData("teams", "Get a list of teams you can give yourself")]
+        [CommandData("teams", "Get a list of team roles you can give yourself")]
         public async Task Teams()
         {
             var userOptions = ConfigLoader.LoadData().data.userCustomOptions;
@@ -125,8 +125,8 @@ namespace DiscordBot.Modules.UserCustomizationModule
             await ReplyAsync(embed: embed.Build());
         }
 
-        [Command("roles")]
-        [CommandData("roles", "Get a list of roles you can give yourself")]
+        [Command("groups")]
+        [CommandData("groups", "Get a list of group roles you can give yourself")]
         public async Task Roles()
         {
             var userOptions = ConfigLoader.LoadData().data.userCustomOptions;

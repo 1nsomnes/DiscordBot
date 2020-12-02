@@ -1,20 +1,26 @@
 ﻿<Properties StartupConfiguration="{F9331131-B1D3-41AB-8993-82C154BFD9FD}|Default" VersionControlDisabled="True">
-  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Modules/Fun.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Core/BotColors.cs">
     <Files>
-      <File FileName="DiscordBot/Core/ConfigLoader.cs" Line="74" Column="35" />
-      <File FileName="DiscordBot/Core/Bot.cs" />
-      <File FileName="DiscordBot/Core/CommandHandler.cs" />
-      <File FileName="DiscordBot/Modules/SingleCommands/HelpCommmand.cs" />
-      <File FileName="DiscordBot/Modules/AdminUtility/AdminUtilities.cs" />
-      <File FileName="DiscordBot/Program.cs" />
-      <File FileName="DiscordBot/Modules/Fun.cs" Line="69" Column="60" />
-      <File FileName="DiscordBot/Modules/Utilities/UtilityCommands.cs" />
+      <File FileName="DiscordBot/Modules/Utilities/UserInfo.cs" Line="1" Column="1" />
+      <File FileName="DiscordBot/Modules/Utilities/UtilityCommands.cs" Line="83" Column="37" />
+      <File FileName="DiscordBot/Modules/SingleCommands/HelpCommmand.cs" Line="69" Column="56" />
+      <File FileName="DiscordBot/Core/BotColors.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="DiscordBot" expanded="True">
-            <Node name="DiscordBot" selected="True" />
+            <Node name="DiscordBot" expanded="True">
+              <Node name="Core" expanded="True">
+                <Node name="BotColors.cs" selected="True" />
+              </Node>
+              <Node name="Modules" expanded="True">
+                <Node name="AdminUtility" expanded="True" />
+                <Node name="ModerationModule" expanded="True" />
+                <Node name="SingleCommands" expanded="True" />
+                <Node name="Utilities" expanded="True" />
+              </Node>
+            </Node>
           </Node>
         </State>
       </Pad>
