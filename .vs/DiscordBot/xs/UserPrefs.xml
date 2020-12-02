@@ -1,7 +1,7 @@
-﻿<Properties VersionControlDisabled="True">
+﻿<Properties StartupConfiguration="{F9331131-B1D3-41AB-8993-82C154BFD9FD}|Default" VersionControlDisabled="True">
   <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Modules/Fun.cs">
     <Files>
-      <File FileName="DiscordBot/Core/ConfigLoader.cs" Line="74" Column="44" />
+      <File FileName="DiscordBot/Core/ConfigLoader.cs" Line="74" Column="35" />
       <File FileName="DiscordBot/Core/Bot.cs" />
       <File FileName="DiscordBot/Core/CommandHandler.cs" />
       <File FileName="DiscordBot/Modules/SingleCommands/HelpCommmand.cs" />
@@ -20,11 +20,9 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.DiscordBot PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <DisabledProjects>
-    <String>DiscordBot/DiscordBot.csproj</String>
-  </DisabledProjects>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|anycpu" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <Debugger.DebugSourceFolders />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
