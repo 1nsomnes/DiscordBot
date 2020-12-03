@@ -1,24 +1,24 @@
 ﻿<Properties StartupConfiguration="{F9331131-B1D3-41AB-8993-82C154BFD9FD}|Default" VersionControlDisabled="True">
-  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Core/BotUtils.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DiscordBot/Modules/AdminUtility/AdminUtilities.cs">
     <Files>
-      <File FileName="DiscordBot/Modules/Utilities/UserInfo.cs" Line="1" Column="1" />
+      <File FileName="DiscordBot/Modules/Utilities/UserInfo.cs" Line="24" Column="1" />
       <File FileName="DiscordBot/Modules/Utilities/UtilityCommands.cs" Line="71" Column="37" />
-      <File FileName="DiscordBot/Modules/SingleCommands/HelpCommmand.cs" Line="69" Column="56" />
-      <File FileName="DiscordBot/Core/BotColors.cs" Line="1" Column="1" />
-      <File FileName="DiscordBot/Modules/AdminUtility/LogHandler.cs" Line="49" Column="53" />
-      <File FileName="DiscordBot/Modules/Fun.cs" Line="1" Column="1" />
-      <File FileName="DiscordBot/Core/BotUtils.cs" Line="1" Column="1" />
+      <File FileName="DiscordBot/Core/BotColors.cs" Line="14" Column="42" />
+      <File FileName="DiscordBot/Modules/AdminUtility/LogHandler.cs" Line="46" Column="27" />
+      <File FileName="DiscordBot/Modules/Fun.cs" Line="6" Column="17" />
+      <File FileName="DiscordBot/Core/BotUtils.cs" Line="90" Column="83" />
+      <File FileName="DiscordBot/Modules/AdminUtility/AdminUtilities.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="DiscordBot" expanded="True">
             <Node name="DiscordBot" expanded="True">
-              <Node name="Core" expanded="True">
-                <Node name="BotUtils.cs" selected="True" />
-              </Node>
+              <Node name="Core" expanded="True" />
               <Node name="Modules" expanded="True">
-                <Node name="AdminUtility" expanded="True" />
+                <Node name="AdminUtility" expanded="True">
+                  <Node name="AdminUtilities.cs" selected="True" />
+                </Node>
                 <Node name="ModerationModule" expanded="True" />
                 <Node name="SingleCommands" expanded="True" />
                 <Node name="UserCustomizationModule" expanded="True" />

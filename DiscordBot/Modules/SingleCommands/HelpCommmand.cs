@@ -46,7 +46,7 @@ namespace DiscordBot.Modules.SingleCommands
         {
             var eb = new EmbedBuilder().WithDescription("Here are the modules for Codey! \n" +
                 $"Do `{ConfigLoader.Prefix}help <module>` to find out more about a module.").
-                WithColor((int)BotColors.DARKER_GREY);
+                WithColor( BotColors.DARKER_GREY);
 
             eb = LoadHelpModules(Context.User, eb);
             eb.WithTimestamp(DateTime.UtcNow);  
@@ -66,7 +66,7 @@ namespace DiscordBot.Modules.SingleCommands
             {
                 Title = textInfo.ToTitleCase(moduleName) + " Module",
 
-                Color = new Color((int)BotColors.BLUE),
+                Color = new Color( BotColors.BLUE),
 
                 Timestamp = DateTime.UtcNow
             };

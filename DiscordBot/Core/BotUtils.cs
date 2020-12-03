@@ -10,7 +10,7 @@ namespace DiscordBot.Core
         {
             var embed = new EmbedBuilder()
             {
-                Color = new Color((int)BotColors.GREEN)
+                Color = new Color( BotColors.GREEN)
             };
 
             if (withTimestamp) embed.WithTimestamp(DateTime.UtcNow);
@@ -24,7 +24,7 @@ namespace DiscordBot.Core
         {
             var embed = new EmbedBuilder()
             {
-                Color = new Color((int)BotColors.RED)
+                Color = new Color( BotColors.RED)
             };
 
             if (!string.IsNullOrEmpty(title)) embed.Title = title;

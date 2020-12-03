@@ -43,11 +43,11 @@ namespace DiscordBot.Modules.AdminUtility
             var dateTime = ((DateTimeOffset)arg.JoinedAt).ShortenedDateTime();
 
             var embed = new EmbedBuilder().
-                WithColor((int)BotColors.DARK_RED).
+                WithColor(BotColors.DARK_RED).
                 WithDescription(arg.Tag() + " left").
                 AddField("User Information", arg.Tag() + $" ({arg.Id}) " + arg.Mention).
                 AddField("Joined At", $"{dateTime} (**{joinedDaysAgo} days ago**)").
-                AddField("ID", $"```md\nUser = {arg.Id}```");
+                AddField("ID", $"```swift\nUser = {arg.Id}```");
 
             embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg.GetAvatarUrl()).WithName(arg.Tag());
 
@@ -71,12 +71,12 @@ namespace DiscordBot.Modules.AdminUtility
             var createdDaysAgo = (DateTime.UtcNow - arg.CreatedAt).Days;
 
             var embed = new EmbedBuilder().
-                WithColor((int)BotColors.DARK_GREEN).
+                WithColor(BotColors.DARK_GREEN).
                 WithDescription(arg.Tag() + " joined").
                 AddField("User Information", arg.Tag() + $" ({arg.Id}) " + arg.Mention).
                 AddField("Created At", $"{arg.CreatedAt.ShortenedDateTime()} (**{createdDaysAgo} days ago**)", true).
                 AddField("Member Count", arg.Guild.MemberCount, true).
-                AddField("ID", $"```md\nUser = {arg.Id}\nGuild = {arg.Guild.Id}```");
+                AddField("ID", $"```swift\nUser = {arg.Id}\nGuild = {arg.Guild.Id}```");
 
             embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg.GetAvatarUrl()).WithName(arg.Tag());
 
@@ -113,7 +113,7 @@ namespace DiscordBot.Modules.AdminUtility
                     AddField("After", $"`{secondNickname}`").
                     WithTimestamp(DateTime.UtcNow).
                     WithFooter($"ID: {arg1.Id}").
-                    WithColor(new Color((int)BotColors.ORANGE)).
+                    WithColor(new Color( BotColors.ORANGE)).
                     Build();
 
                 var channel = Program.bot.client.GetChannel(adminData.logChannelId);
@@ -136,7 +136,7 @@ namespace DiscordBot.Modules.AdminUtility
 
             var embed = arg1.HasValue ? BotUtils.ErrorEmbed($"{arg1.Value.Author.Tag()} Deleted",
                 $"<#{arg1.Value.Channel.Id}>: `{arg1.Value.Content}`").WithFooter($"ID: {arg1.Value.Author.Id}").
-                WithColor(new Color((int)BotColors.DARK_ORANGE))
+                WithColor(new Color( BotColors.DARK_ORANGE))
                 : BotUtils.ErrorEmbed(description: "Message was deleted but the information was lost");
 
             var channel = Program.bot.client.GetChannel(adminData.logChannelId);
@@ -168,7 +168,7 @@ namespace DiscordBot.Modules.AdminUtility
             embed.WithFooter($"ID: " + arg2.Id);
             embed.AddField("Before", $"`{prevMsg}`");
             embed.AddField("After", $"`{arg2.Content}`");
-            embed.Color = new Color((int)BotColors.ORANGE);
+            embed.Color = new Color( BotColors.ORANGE);
 
             var channel = Program.bot.client.GetChannel(adminData.logChannelId);
             if (!(channel is ISocketMessageChannel msgChannel)) return; ;
@@ -309,7 +309,7 @@ namespace DiscordBot.Modules.AdminUtility
                 WithTitle("Log Settings").
                 WithDescription(desc).
                 WithTimestamp(DateTime.UtcNow).
-                WithColor((int)BotColors.ORANGE).
+                WithColor( BotColors.ORANGE).
                 Build();
 
             await ReplyAsync(embed: embed);

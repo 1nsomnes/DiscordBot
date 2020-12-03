@@ -32,7 +32,7 @@ namespace DiscordBot.Modules.Utilities
 
                 Timestamp = DateTime.UtcNow,
 
-                Color = new Color((int)BotColors.BLUE)
+                Color = new Color( BotColors.BLUE)
             };
 
             eb.AddField("Owner", Context.Guild.Owner, true);
@@ -61,7 +61,7 @@ namespace DiscordBot.Modules.Utilities
 
                 Timestamp = DateTime.UtcNow,
 
-                Color = new Color((int)BotColors.GREEN)
+                Color = new Color( BotColors.GREEN)
             }.Build();
 
             await ReplyAsync(embed: embed);
@@ -81,7 +81,7 @@ namespace DiscordBot.Modules.Utilities
             var embed = new EmbedBuilder().
                 WithDescription("*Courtsey of the Brackey's discord server*").
                 WithTimestamp(DateTime.UtcNow).
-                WithColor((int)BotColors.BLUE);
+                WithColor( BotColors.BLUE);
 
             string commands = "";
 

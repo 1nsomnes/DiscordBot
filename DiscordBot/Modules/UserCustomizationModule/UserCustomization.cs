@@ -119,7 +119,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
             var embed = new EmbedBuilder().
                 WithTitle("Teams").
                 WithDescription(desc).
-                WithColor(new Color((int)BotColors.ORANGE)).
+                WithColor(new Color( BotColors.ORANGE)).
                 WithTimestamp(DateTime.UtcNow);
 
             await ReplyAsync(embed: embed.Build());
@@ -146,7 +146,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
             var embed = new EmbedBuilder().
                 WithTitle("Groups").
                 WithDescription(desc).
-                WithColor(new Color((int)BotColors.ORANGE)).
+                WithColor(new Color( BotColors.ORANGE)).
                 WithTimestamp(DateTime.UtcNow);
 
             await ReplyAsync(embed: embed.Build());
