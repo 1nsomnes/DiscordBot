@@ -21,8 +21,69 @@ namespace DiscordBot.Modules.AdminUtility
             client.MessageUpdated += ClientMessageUpdated;
             client.MessageDeleted += ClientMessageDeleted;
             client.GuildMemberUpdated += GuildMemberUpdated;
+            client.UserJoined += JoinedGuild;
+            client.UserLeft += LeftGuild;
+             
 
             return Task.CompletedTask;
+        }
+
+        private static async Task LeftGuild(SocketGuildUser arg)
+        {
+            Console.WriteLine("User left");
+            if (!adminData.logSettings.userLeft || !adminData.isLogging) return;
+            //If the log channel can't be found disable logging
+            if (arg.Guild.GetChannel(adminData.logChannelId) == null)
+            {
+                adminData.isLogging = false;
+                return;
+            }
+
+            var joinedDaysAgo = (DateTime.UtcNow - (DateTimeOffset)arg.JoinedAt).Days;
+            var dateTime = ((DateTimeOffset)arg.JoinedAt).ShortenedDateTime();
+
+            var embed = new EmbedBuilder().
+                WithColor((int)BotColors.DARK_RED).
+                WithDescription(arg.Tag() + " left").
+                AddField("User Information", arg.Tag() + $" ({arg.Id}) " + arg.Mention).
+                AddField("Joined At", $"{dateTime} (**{joinedDaysAgo} days ago**)").
+                AddField("ID", $"```md\nUser = {arg.Id}```");
+
+            embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg.GetAvatarUrl()).WithName(arg.Tag());
+
+            var channel = Program.bot.client.GetChannel(adminData.logChannelId);
+            if (!(channel is ISocketMessageChannel msgChannel)) return;
+
+            await msgChannel.SendMessageAsync(embed: embed.Build());
+        }
+
+        private static async Task JoinedGuild(SocketGuildUser arg)
+        {
+            Console.WriteLine("User joined");
+            if (!adminData.logSettings.userJoined || !adminData.isLogging) return;
+            //If the log channel can't be found disable logging
+            if (arg.Guild.GetChannel(adminData.logChannelId) == null)
+            {
+                adminData.isLogging = false;
+                return;
+            }
+
+            var createdDaysAgo = (DateTime.UtcNow - arg.CreatedAt).Days;
+
+            var embed = new EmbedBuilder().
+                WithColor((int)BotColors.DARK_GREEN).
+                WithDescription(arg.Tag() + " joined").
+                AddField("User Information", arg.Tag() + $" ({arg.Id}) " + arg.Mention).
+                AddField("Created At", $"{arg.CreatedAt.ShortenedDateTime()} (**{createdDaysAgo} days ago**)", true).
+                AddField("Member Count", arg.Guild.MemberCount, true).
+                AddField("ID", $"```md\nUser = {arg.Id}\nGuild = {arg.Guild.Id}```");
+
+            embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg.GetAvatarUrl()).WithName(arg.Tag());
+
+            var channel = Program.bot.client.GetChannel(adminData.logChannelId);
+            if (!(channel is ISocketMessageChannel msgChannel)) return;
+
+            await msgChannel.SendMessageAsync(embed: embed.Build());
         }
 
         private static async Task GuildMemberUpdated(SocketGuildUser arg1, SocketGuildUser arg2)
@@ -97,7 +158,9 @@ namespace DiscordBot.Modules.AdminUtility
                 return;
             }
 
-            var prevMsg = arg1.Value?.Content ?? "Could not retrieve contents of message";  
+            var prevMsg = arg1.Value?.Content ?? "Could not retrieve contents of message";
+
+            if (prevMsg.Equals(arg2.Content)) return;
 
             var embed = BotUtils.SuccessEmbed($"{arg2.Author.Tag()} Editted");
 
@@ -113,6 +176,10 @@ namespace DiscordBot.Modules.AdminUtility
             await msgChannel.SendMessageAsync(embed: embed.Build());
             return;
         }
+
+        /*~~~~~~~~~~~~~~~~~~~~~~~~~
+                COMMANDS
+        ~~~~~~~~~~~~~~~~~~~~~~~~*/
 
         [Command("logchannel")]
         [CommandData("logchannel <channel>")]

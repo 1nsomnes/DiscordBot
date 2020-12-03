@@ -82,6 +82,8 @@ namespace DiscordBot.Core
         public bool editedMessages = true;
         public bool deletedMessages = true;
         public bool nicknameUpdated = true;
+        public bool userJoined = true;
+        public bool userLeft = true;
     }
 
 }

@@ -87,7 +87,7 @@ namespace DiscordBot.Core
         public static string ShortenedDateTime(this DateTimeOffset dto)
         {
 
-            return $"{dto.Month}/{dto.Day}/{dto.Year} {dto.Hour}:{dto.Minute}{dto.TimeOfDay}";
+            return $"{dto.Month}/{dto.Day}/{dto.Year}, {dto.Hour}:{dto.Minute} UTC";
         }
 
         public static string Tag(this IGuildUser u)

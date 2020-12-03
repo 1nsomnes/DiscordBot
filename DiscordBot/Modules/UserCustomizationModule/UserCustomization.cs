@@ -127,7 +127,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
 
         [Command("groups")]
         [CommandData("groups", "Get a list of group roles you can give yourself")]
-        public async Task Roles()
+        public async Task Groups()
         {
             var userOptions = ConfigLoader.LoadData().data.userCustomOptions;
 
@@ -135,7 +135,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
 
             foreach (var role in userOptions.userClassifications)
             {
-                desc += $"\n  -{Context.Guild.GetRole(role)?.Name}";
+                desc += $"\n  - {Context.Guild.GetRole(role)?.Name}";
             }
 
             if(string.IsNullOrWhiteSpace(desc))
@@ -144,7 +144,7 @@ namespace DiscordBot.Modules.UserCustomizationModule
             }
 
             var embed = new EmbedBuilder().
-                WithTitle("Roles").
+                WithTitle("Groups").
                 WithDescription(desc).
                 WithColor(new Color((int)BotColors.ORANGE)).
                 WithTimestamp(DateTime.UtcNow);
