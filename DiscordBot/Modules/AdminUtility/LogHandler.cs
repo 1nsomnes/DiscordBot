@@ -43,7 +43,7 @@ namespace DiscordBot.Modules.AdminUtility
             var dateTime = ((DateTimeOffset)arg.JoinedAt).ShortenedDateTime();
 
             var embed = new EmbedBuilder().
-                WithColor(BotColors.DARK_RED).
+                WithColor(BotColors.RED).
                 WithDescription(arg.Tag() + " left").
                 AddField("User Information", arg.Tag() + $" ({arg.Id}) " + arg.Mention).
                 AddField("Joined At", $"{dateTime} (**{joinedDaysAgo} days ago**)").
@@ -76,7 +76,7 @@ namespace DiscordBot.Modules.AdminUtility
             var createdDaysAgo = (DateTime.UtcNow - arg.CreatedAt).Days;
 
             var embed = new EmbedBuilder().
-                WithColor(BotColors.DARK_GREEN).
+                WithColor(BotColors.GREEN).
                 WithDescription(arg.Tag() + " joined").
                 AddField("User Information", arg.Tag() + $" ({arg.Id}) " + arg.Mention).
                 AddField("Created At", $"{arg.CreatedAt.ShortenedDateTime()} (**{createdDaysAgo} days ago**)", true).
@@ -87,7 +87,7 @@ namespace DiscordBot.Modules.AdminUtility
                     WithIconUrl(Program.bot.client.CurrentUser.FixedAvatarURL()).
                     WithText(Program.bot.client.CurrentUser.Tag()));
 
-            embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg.FixedAvatarURL()).WithName(arg.Tag());
+            embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg.FixedAvatarURL()).WithName(arg.TagNickname());
 
             var channel = Program.bot.client.GetChannel(adminData.logChannelId);
             if (!(channel is ISocketMessageChannel msgChannel)) return;
@@ -105,31 +105,31 @@ namespace DiscordBot.Modules.AdminUtility
                 return;
             }
 
-            //When arg1.Nickname is empty it threw an error when doing arg1.Nickname.Equals
-            //This solves that
-            var tempNickname = arg1.Nickname;
-            if (string.IsNullOrEmpty(arg1.Nickname))
-                tempNickname = "stuff";
+            string oldUsername = string.IsNullOrEmpty(arg1.Nickname) ? arg1.Username : arg1.Nickname;
+            string newUsername = string.IsNullOrEmpty(arg2.Nickname) ? arg2.Username : arg2.Nickname;
 
-            if (!tempNickname.Equals(arg2.Nickname))
+            if(oldUsername != newUsername)
             {
-                var user = arg2 as IUser;
-                var firstNickname = string.IsNullOrEmpty(arg1.Nickname) ? arg1.Username : arg1.Nickname;
-                var secondNickname = string.IsNullOrEmpty(arg2.Nickname) ? arg2.Username : arg2.Nickname;
                 var embed = new EmbedBuilder().
-                    WithTitle($"{user.Tag()} Nickname Updated").
-                    AddField("Before", $"`{firstNickname}`").
-                    AddField("After", $"`{secondNickname}`").
-                    WithTimestamp(DateTime.UtcNow).
-                    WithFooter($"ID: {arg1.Id}").
-                    WithColor(new Color( BotColors.ORANGE)).
-                    Build();
+                WithColor(BotColors.ORANGE).
+                WithDescription(arg2.Tag() + " updated their name").
+                AddField("User Information", arg2.Tag() + $" ({arg2.Id}) " + arg2.Mention).
+                AddField("Previous Name", $"`{oldUsername}`").
+                AddField("New Name", $"`{newUsername}`").
+                AddField("ID", $"```swift\nUser = {arg2.Id}```").
+                WithTimestamp(DateTime.UtcNow).
+                WithFooter(new EmbedFooterBuilder().
+                    WithIconUrl(Program.bot.client.CurrentUser.FixedAvatarURL()).
+                    WithText(Program.bot.client.CurrentUser.Tag()));
+
+                embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg2.FixedAvatarURL()).WithName(arg2.Tag());
 
                 var channel = Program.bot.client.GetChannel(adminData.logChannelId);
                 if (!(channel is ISocketMessageChannel msgChannel)) return;
 
-                await msgChannel.SendMessageAsync(embed: embed);
+                await msgChannel.SendMessageAsync(embed: embed.Build());
             }
+
         }
 
         private static async Task ClientMessageDeleted(Cacheable<IMessage, ulong> arg1, ISocketMessageChannel arg2)
@@ -143,16 +143,27 @@ namespace DiscordBot.Modules.AdminUtility
                 return;
             }
 
-            var embed = arg1.HasValue ? BotUtils.ErrorEmbed($"{arg1.Value.Author.Tag()} Deleted",
-                $"<#{arg1.Value.Channel.Id}>: `{arg1.Value.Content}`").WithFooter($"ID: {arg1.Value.Author.Id}").
-                WithColor(new Color( BotColors.DARK_ORANGE))
-                : BotUtils.ErrorEmbed(description: "Message was deleted but the information was lost");
+            if (!arg1.HasValue) return;
+
+            var embed = new EmbedBuilder().
+                WithColor(BotColors.RED).
+                WithDescription(arg1.Value.Author.Tag() + " deleted a message").
+                AddField("User Information", arg1.Value.Author.Tag() + $" ({arg1.Value.Author.Id}) " + arg1.Value.Author.Mention).
+                AddField("Channel", $"{arg2.Name} ({arg2.Id}) <#{arg2.Id}>").
+                AddField("Content", $"`{arg1.Value.Content}`").
+                AddField("ID", $"```swift\nUser = {arg2.Id}\nMessage = {arg1.Value.Id}```").
+                WithTimestamp(DateTime.UtcNow).
+                WithFooter(new EmbedFooterBuilder().
+                    WithIconUrl(Program.bot.client.CurrentUser.FixedAvatarURL()).
+                    WithText(Program.bot.client.CurrentUser.Tag()));
+
+            embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg1.Value.Author.FixedAvatarURL()).
+                WithName(((IGuildUser)arg1.Value.Author).TagNickname());
 
             var channel = Program.bot.client.GetChannel(adminData.logChannelId);
             if (!(channel is ISocketMessageChannel msgChannel)) return;
 
             await msgChannel.SendMessageAsync(embed: embed.Build());
-            return;
         }
 
         private static async Task ClientMessageUpdated(Cacheable<IMessage, ulong> arg1, SocketMessage arg2, ISocketMessageChannel arg3)
@@ -168,16 +179,25 @@ namespace DiscordBot.Modules.AdminUtility
             }
 
             var prevMsg = arg1.Value?.Content ?? "Could not retrieve contents of message";
+            Console.WriteLine("Previous Message: " + prevMsg);
 
             if (prevMsg.Equals(arg2.Content)) return;
 
-            var embed = BotUtils.SuccessEmbed($"{arg2.Author.Tag()} Editted");
+            var embed = new EmbedBuilder().
+                WithColor(BotColors.ORANGE).
+                WithDescription(arg2.Author.Tag() + $" edited a message\n[Go To Message]({arg2.GetJumpUrl()})").
+                AddField("User Information", arg2.Author.Tag() + $" ({arg2.Author.Id}) " + arg2.Author.Mention).
+                AddField("Channel Information", $"{arg3.Name} ({arg3.Id}) <#{arg3.Id}>").
+                AddField("Previous Content", $"`{prevMsg}`").
+                AddField("New Content", $"`{arg2.Content}`").
+                AddField("ID", $"```swift\nUser = {arg2.Id}\nMessage = {arg2.Id}```").
+                WithTimestamp(DateTime.UtcNow).
+                WithFooter(new EmbedFooterBuilder().
+                    WithIconUrl(Program.bot.client.CurrentUser.FixedAvatarURL()).
+                    WithText(Program.bot.client.CurrentUser.Tag()));
 
-            embed.WithDescription($"In <#{arg2.Channel.Id}>");
-            embed.WithFooter($"ID: " + arg2.Id);
-            embed.AddField("Before", $"`{prevMsg}`");
-            embed.AddField("After", $"`{arg2.Content}`");
-            embed.Color = new Color( BotColors.ORANGE);
+            embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg2.Author.FixedAvatarURL()).
+                WithName(((IGuildUser)arg2.Author).TagNickname());
 
             var channel = Program.bot.client.GetChannel(adminData.logChannelId);
             if (!(channel is ISocketMessageChannel msgChannel)) return; ;

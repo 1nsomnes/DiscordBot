@@ -95,6 +95,16 @@ namespace DiscordBot.Core
             return u.Username + "#" + u.Discriminator;
         }
 
+        public static string TagNickname(this IGuildUser u)
+        {
+            string tag = $"{u.Username}#{u.Discriminator}";
+            if (!string.IsNullOrEmpty(u.Nickname))
+            {
+                tag += $" ({u.Nickname})";
+            }
+            return tag;
+        }
+
         public static string FixedAvatarURL(this IUser user)
         {
             return string.IsNullOrEmpty(user.GetAvatarUrl()) ? user.GetDefaultAvatarUrl() : user.GetAvatarUrl();
