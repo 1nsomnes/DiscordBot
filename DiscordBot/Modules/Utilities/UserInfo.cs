@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using DiscordBot.Core;
 
 namespace DiscordBot.Modules.Utilities
@@ -18,7 +19,7 @@ namespace DiscordBot.Modules.Utilities
             {
                 Title = $"User info on {author.Username}:",
 
-                ThumbnailUrl = author.GetAvatarUrl(),
+                ThumbnailUrl = author.FixedAvatarURL(),
 
                 Color = new Color( BotColors.GREEN),
 
@@ -43,7 +44,7 @@ namespace DiscordBot.Modules.Utilities
             {
                 Title = $"User info on {author.Username}:",
 
-                ThumbnailUrl = author.GetAvatarUrl(),
+                ThumbnailUrl = author.FixedAvatarURL(),
 
                 Color = new Color( BotColors.GREEN),
 
@@ -82,7 +83,7 @@ namespace DiscordBot.Modules.Utilities
             {
                 Title = $"User info on {author.Username}:",
 
-                ThumbnailUrl = author.GetAvatarUrl(),
+                ThumbnailUrl = author.FixedAvatarURL(),
 
                 Color = new Color( BotColors.GREEN),
 

@@ -47,9 +47,14 @@ namespace DiscordBot.Modules.AdminUtility
                 WithDescription(arg.Tag() + " left").
                 AddField("User Information", arg.Tag() + $" ({arg.Id}) " + arg.Mention).
                 AddField("Joined At", $"{dateTime} (**{joinedDaysAgo} days ago**)").
-                AddField("ID", $"```swift\nUser = {arg.Id}```");
+                AddField("ID", $"```swift\nUser = {arg.Id}```").
+                WithTimestamp(DateTime.UtcNow).
+                WithFooter(new EmbedFooterBuilder().
+                    WithIconUrl(Program.bot.client.CurrentUser.FixedAvatarURL()).
+                    WithText(Program.bot.client.CurrentUser.Tag()));
+                
 
-            embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg.GetAvatarUrl()).WithName(arg.Tag());
+            embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg.FixedAvatarURL()).WithName(arg.Tag());
 
             var channel = Program.bot.client.GetChannel(adminData.logChannelId);
             if (!(channel is ISocketMessageChannel msgChannel)) return;
@@ -76,9 +81,13 @@ namespace DiscordBot.Modules.AdminUtility
                 AddField("User Information", arg.Tag() + $" ({arg.Id}) " + arg.Mention).
                 AddField("Created At", $"{arg.CreatedAt.ShortenedDateTime()} (**{createdDaysAgo} days ago**)", true).
                 AddField("Member Count", arg.Guild.MemberCount, true).
-                AddField("ID", $"```swift\nUser = {arg.Id}\nGuild = {arg.Guild.Id}```");
+                AddField("ID", $"```swift\nUser = {arg.Id}\nGuild = {arg.Guild.Id}```").
+                WithTimestamp(DateTime.UtcNow).
+                WithFooter(new EmbedFooterBuilder().
+                    WithIconUrl(Program.bot.client.CurrentUser.FixedAvatarURL()).
+                    WithText(Program.bot.client.CurrentUser.Tag()));
 
-            embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg.GetAvatarUrl()).WithName(arg.Tag());
+            embed.Author = new EmbedAuthorBuilder().WithIconUrl(arg.FixedAvatarURL()).WithName(arg.Tag());
 
             var channel = Program.bot.client.GetChannel(adminData.logChannelId);
             if (!(channel is ISocketMessageChannel msgChannel)) return;

@@ -90,14 +90,14 @@ namespace DiscordBot.Core
             return $"{dto.Month}/{dto.Day}/{dto.Year}, {dto.Hour}:{dto.Minute} UTC";
         }
 
-        public static string Tag(this IGuildUser u)
+        public static string Tag(this IUser u)
         {
             return u.Username + "#" + u.Discriminator;
         }
 
-        public static string Tag(this IUser u)
+        public static string FixedAvatarURL(this IUser user)
         {
-            return u.Username + "#" + u.Discriminator;
+            return string.IsNullOrEmpty(user.GetAvatarUrl()) ? user.GetDefaultAvatarUrl() : user.GetAvatarUrl();
         }
     }
 }
