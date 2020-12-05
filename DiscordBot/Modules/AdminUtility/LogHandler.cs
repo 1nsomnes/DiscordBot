@@ -35,7 +35,7 @@ namespace DiscordBot.Modules.AdminUtility
             //If the log channel can't be found disable logging
             if (arg.Guild.GetChannel(adminData.logChannelId) == null)
             {
-                adminData.isLogging = false;
+                Console.WriteLine("Error: Could not find channel to log LeftGuild");
                 return;
             }
 
@@ -69,7 +69,7 @@ namespace DiscordBot.Modules.AdminUtility
             //If the log channel can't be found disable logging
             if (arg.Guild.GetChannel(adminData.logChannelId) == null)
             {
-                adminData.isLogging = false;
+                Console.WriteLine("Error: Could not find channel to log JoinedGuild");
                 return;
             }
 
@@ -101,7 +101,7 @@ namespace DiscordBot.Modules.AdminUtility
             //If the log channel can't be found disable logging
             if (arg2.Guild.GetChannel(adminData.logChannelId) == null)
             {
-                adminData.isLogging = false;
+                Console.WriteLine("Error: Could not find channel to log GuildMemberUpdated");
                 return;
             }
 
@@ -139,7 +139,7 @@ namespace DiscordBot.Modules.AdminUtility
             //If the log channel can't be found disable logging
             if((arg2 as SocketGuildChannel).Guild.GetChannel(adminData.logChannelId) == null)
             {
-                adminData.isLogging = false;
+                Console.WriteLine("Error: Could not find channel to log MessageDeleted");
                 return;
             }
 
@@ -174,7 +174,7 @@ namespace DiscordBot.Modules.AdminUtility
             //If the log channel can't be found disable logging
             if ((arg3 as SocketGuildChannel).Guild.GetChannel(adminData.logChannelId) == null)
             {
-                adminData.isLogging = false;
+                Console.WriteLine("Error: Could not find channel to log MessageUpdated");
                 return;
             }
 
