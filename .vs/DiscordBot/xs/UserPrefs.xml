@@ -3,9 +3,9 @@
     <Files>
       <File FileName="DiscordBot/Modules/Utilities/UserInfo.cs" Line="86" Column="56" />
       <File FileName="DiscordBot/Core/BotColors.cs" Line="14" Column="42" />
-      <File FileName="DiscordBot/Modules/AdminUtility/LogHandler.cs" Line="151" Column="84" />
       <File FileName="DiscordBot/Core/Bot.cs" Line="22" Column="33" />
-      <File FileName="DiscordBot/Core/BotUtils.cs" Line="105" Column="24" />
+      <File FileName="DiscordBot/Core/BotUtils.cs" Line="101" Column="18" />
+      <File FileName="DiscordBot/Modules/AdminUtility/LogHandler.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

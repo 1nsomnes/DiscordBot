@@ -190,7 +190,7 @@ namespace DiscordBot.Modules.AdminUtility
                 AddField("Channel Information", $"{arg3.Name} ({arg3.Id}) <#{arg3.Id}>").
                 AddField("Previous Content", $"`{prevMsg}`").
                 AddField("New Content", $"`{arg2.Content}`").
-                AddField("ID", $"```swift\nUser = {arg2.Id}\nMessage = {arg2.Id}```").
+                AddField("ID", $"```swift\nUser = {arg2.Author.Id}\nMessage = {arg2.Id}```").
                 WithTimestamp(DateTime.UtcNow).
                 WithFooter(new EmbedFooterBuilder().
                     WithIconUrl(Program.bot.client.CurrentUser.FixedAvatarURL()).
